@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =========================================================
+         BASIC PAGE CONFIGURATION
+    ========================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- Dynamic page title -->
+    <title>
+        {% block title %}
+            CyberSentinel AI
+        {% endblock %}
+    </title>
+
+
+    <!-- =========================================================
+         BOOTSTRAP CSS
+    ========================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================================
+         GOOGLE FONT
+    ========================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================================
+         GLOBAL CYBERSENTINEL AI STYLING
+    ========================================================== -->
+
+    <style>
+
+        /* =====================================================
+           COLOR VARIABLES
+        ====================================================== */
+
+        :root {
+
+            --background: #0A0D0C;
+
+            --navbar: #101614;
+
+            --card: #121A17;
+
+            --card-hover: #16201C;
+
+            --primary-emerald: #00C896;
+
+            --secondary-lime: #A3E635;
+
+            --gold: #F5B942;
+
+            --text-primary: #F3F7F5;
+
+            --text-secondary: #9AAEA5;
+
+            --muted: #63746D;
+
+            --border: #24332D;
+
+            --border-hover: #355047;
+
+            --danger: #FF5C5C;
+
+            --warning: #F5B942;
+
+            --success: #22C55E;
+
+        }
+
+
+        /* =====================================================
+           GLOBAL BOX SIZING
+        ====================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           HTML
+        ====================================================== */
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+
+        /* =====================================================
+           BODY
+        ====================================================== */
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 85% 10%,
+                    rgba(0, 200, 150, 0.055),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 10% 90%,
+                    rgba(0, 200, 150, 0.035),
+                    transparent 30%
+                ),
+
+                var(--background);
+
+            color: var(--text-primary);
+
+            font-family:
+                "Inter",
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ====================================================== */
+
+        .container {
+
+            max-width: 1150px;
+
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ====================================================== */
+
+        .navbar {
+
+            min-height: 70px;
+
+            background:
+                rgba(10, 13, 12, 0.97) !important;
+
+            border-bottom:
+                1px solid var(--border);
+
+            backdrop-filter: blur(10px);
+
+        }
+
+
+        /* =====================================================
+           NAVBAR BRAND
+        ====================================================== */
+
+        .navbar-brand {
+
+            color:
+                var(--text-primary) !important;
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.2px;
+
+            text-decoration: none;
+
+        }
+
+
+        /* Brand shield emoji */
+
+        .brand-icon {
+
+            margin-right: 7px;
+
+            font-size: 20px;
+
+        }
+
+
+        /* Brand highlighted text */
+
+        .brand-highlight {
+
+            color:
+                var(--primary-emerald);
+
+        }
+
+
+        /* =====================================================
+           NAVIGATION LINKS
+        ====================================================== */
+
+        .navbar-nav .nav-link {
+
+            color:
+                var(--text-secondary) !important;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            padding:
+                8px 12px !important;
+
+            border-radius: 7px;
+
+            transition:
+                color 0.2s ease,
+                background 0.2s ease;
+
+        }
+
+
+        /* Navigation hover */
+
+        .navbar-nav .nav-link:hover {
+
+            color:
+                var(--text-primary) !important;
+
+            background:
+                rgba(0, 200, 150, 0.06);
+
+        }
+
+
+        /* Active navigation */
+
+        .navbar-nav .nav-link.active {
+
+            color:
+                var(--primary-emerald) !important;
+
+        }
+
+
+        /* =====================================================
+           SYSTEM STATUS
+        ====================================================== */
+
+        .system-status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-right: 15px;
+
+            color:
+                var(--text-secondary);
+
+            font-size: 11px;
+
+        }
+
+
+        /* Online status dot */
+
+        .status-dot {
+
+            width: 7px;
+
+            height: 7px;
+
+            border-radius: 50%;
+
+            background:
+                var(--primary-emerald);
+
+            box-shadow:
+                0 0 9px
+                rgba(0, 200, 150, 0.7);
+
+        }
+
+
+        /* =====================================================
+           USER NAME
+        ====================================================== */
+
+        .navbar-user {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            color:
+                var(--text-secondary);
+
+            font-size: 12px;
+
+            margin-right: 12px;
+
+        }
+
+
+        /* =====================================================
+           DASHBOARD BUTTON
+        ====================================================== */
+
+        .dashboard-btn {
+
+            color:
+                var(--text-primary);
+
+            border:
+                1px solid var(--border-hover);
+
+            background:
+                transparent;
+
+            border-radius: 7px;
+
+            padding:
+                7px 14px;
+
+            font-size: 12px;
+
+            text-decoration: none;
+
+        }
+
+
+        .dashboard-btn:hover {
+
+            color:
+                var(--text-primary);
+
+            background:
+                var(--card);
+
+            border-color:
+                var(--primary-emerald);
+
+        }
+
+
+        /* =====================================================
+           LOGOUT BUTTON
+        ====================================================== */
+
+        .logout-btn {
+
+            color:
+                #ef8b91;
+
+            border:
+                1px solid
+                rgba(239, 107, 115, 0.4);
+
+            background:
+                transparent;
+
+            border-radius: 7px;
+
+            padding:
+                7px 14px;
+
+            font-size: 12px;
+
+        }
+
+
+        .logout-btn:hover {
+
+            background:
+                rgba(239, 107, 115, 0.1);
+
+            color:
+                #ff9da3;
+
+            border-color:
+                var(--danger);
+
+        }
+
+
+        /* =====================================================
+           FLASH MESSAGES
+        ====================================================== */
+
+        .flash-container {
+
+            max-width: 1150px;
+
+            margin:
+                20px auto 0;
+
+            padding:
+                0 15px;
+
+        }
+
+
+        .flash-message {
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            border: 1px solid;
+
+        }
+
+
+        /* Success flash */
+
+        .flash-success {
+
+            color: #7EF0C5;
+
+            background:
+                rgba(0, 200, 150, 0.08);
+
+            border-color:
+                rgba(0, 200, 150, 0.25);
+
+        }
+
+
+        /* Error flash */
+
+        .flash-danger {
+
+            color: #ff9da3;
+
+            background:
+                rgba(255, 92, 92, 0.08);
+
+            border-color:
+                rgba(255, 92, 92, 0.25);
+
+        }
+
+
+        /* Warning flash */
+
+        .flash-warning {
+
+            color: #FFD978;
+
+            background:
+                rgba(245, 185, 66, 0.08);
+
+            border-color:
+                rgba(245, 185, 66, 0.25);
+
+        }
+
+
+        /* Info flash */
+
+        .flash-info {
+
+            color: #8DDFFF;
+
+            background:
+                rgba(59, 180, 255, 0.08);
+
+            border-color:
+                rgba(59, 180, 255, 0.25);
+
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+        ====================================================== */
+
+        main {
+
+            min-height:
+                calc(100vh - 150px);
+
+        }
+
+
+        /* =====================================================
+           GENERAL CARD
+        ====================================================== */
+
+        .cyber-card {
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                14px;
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
+
+        }
+
+
+        .cyber-card:hover {
+
+            border-color:
+                var(--border-hover);
+
+        }
+
+
+        /* =====================================================
+           PRIMARY EMERALD BUTTON
+        ====================================================== */
+
+        .btn-cyber {
+
+            background:
+                var(--primary-emerald);
+
+            color:
+                #04140F;
+
+            border:
+                1px solid var(--primary-emerald);
+
+            border-radius:
+                8px;
+
+            padding:
+                10px 18px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+            text-decoration:
+                none;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+
+        }
+
+
+        .btn-cyber:hover {
+
+            background:
+                #18D7A8;
+
+            color:
+                #04140F;
+
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 8px 22px
+                rgba(0, 200, 150, 0.18);
+
+        }
+
+
+        /* =====================================================
+           OUTLINE BUTTON
+        ====================================================== */
+
+        .btn-cyber-outline {
+
+            color:
+                var(--text-primary);
+
+            background:
+                transparent;
+
+            border:
+                1px solid var(--border-hover);
+
+            border-radius:
+                8px;
+
+            padding:
+                9px 17px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                600;
+
+            text-decoration:
+                none;
+
+        }
+
+
+        .btn-cyber-outline:hover {
+
+            color:
+                var(--primary-emerald);
+
+            border-color:
+                var(--primary-emerald);
+
+            background:
+                rgba(0, 200, 150, 0.05);
+
+        }
+
+
+        /* =====================================================
+           FORM CONTROLS
+        ====================================================== */
+
+        .form-control,
+        .form-select {
+
+            background:
+                #0D1210 !important;
+
+            color:
+                var(--text-primary) !important;
+
+            border:
+                1px solid var(--border-hover) !important;
+
+            border-radius:
+                8px;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .form-control:focus,
+        .form-select:focus {
+
+            background:
+                #0D1411 !important;
+
+            color:
+                var(--text-primary) !important;
+
+            border-color:
+                var(--primary-emerald) !important;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(0, 200, 150, 0.09) !important;
+
+        }
+
+
+        .form-control::placeholder {
+
+            color:
+                #64756E !important;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        footer {
+
+            margin-top:
+                50px;
+
+            padding:
+                25px 15px;
+
+            text-align:
+                center;
+
+            border-top:
+                1px solid var(--border);
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+        }
+
+
+        footer strong {
+
+            color:
+                var(--text-secondary);
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE NAVBAR
+        ====================================================== */
+
+        @media (max-width: 768px) {
+
+            .system-status {
+
+                display: none;
+
+            }
+
+            .navbar-user {
+
+                display: none;
+
+            }
+
+            .navbar-brand {
+
+                font-size: 18px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 576px) {
+
+            .container {
+
+                width: 100%;
+
+            }
+
+            .navbar {
+
+                min-height: 62px;
+
+            }
+
+        }
+
+    </style>
+
+
+    <!-- =========================================================
+         EXTRA PAGE CSS
+         Individual pages can add their own CSS here.
+    ========================================================== -->
+
+    {% block extra_css %}
+
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVIGATION BAR
+========================================================== -->
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+    <div class="container">
+
+
+        <!-- =====================================================
+             WEBSITE BRAND
+        ====================================================== -->
+
+        <a
+            class="navbar-brand"
+            href="{{ url_for('dashboard') }}"
+        >
+
+            <span class="brand-icon">
+                🛡️
+            </span>
+
+            CyberSentinel
+            <span class="brand-highlight">
+                AI
+            </span>
+
+        </a>
+
+
+        <!-- =====================================================
+             MOBILE NAVBAR TOGGLER
+        ====================================================== -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <!-- =====================================================
+             NAVIGATION CONTENT
+        ====================================================== -->
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar"
+        >
+
+            <!-- Navigation links -->
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                <!-- Dashboard -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('dashboard') }}"
+                    >
+
+                        🏠 Dashboard
+
+                    </a>
+
+                </li>
+
+
+                <!-- Report Incident -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('report_incident') }}"
+                    >
+
+                        🚨 Report Incident
+
+                    </a>
+
+                </li>
+
+
+                <!-- System status -->
+
+                <li class="nav-item ms-lg-2">
+
+                    <div class="system-status">
+
+                        <span class="status-dot"></span>
+
+                        Security System Online
+
+                    </div>
+
+                </li>
+
+
+                <!-- =================================================
+                     USER INFORMATION
+                ================================================== -->
+
+                {% if session.get("user_name") %}
+
+                <li class="nav-item">
+
+                    <span class="navbar-user">
+
+                        👤
+                        {{ session["user_name"]|title }}
+
+                    </span>
+
+                </li>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     LOGOUT
+                ================================================== -->
+
+                {% if session.get("user_id") %}
+
+                <li class="nav-item">
+
+                    <a
+                        href="{{ url_for('logout') }}"
+                        class="btn logout-btn"
+                    >
+
+                        🚪 Logout
+
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     FLASH MESSAGES
+========================================================== -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        <div class="flash-container">
+
+            {% for category, message in messages %}
+
+                <div
+                    class="
+                        alert
+                        flash-message
+                        {% if category == 'success' %}
+                            flash-success
+                        {% elif category == 'danger' %}
+                            flash-danger
+                        {% elif category == 'warning' %}
+                            flash-warning
+                        {% else %}
+                            flash-info
+                        {% endif %}
+                    "
+                    role="alert"
+                >
+
+                    {% if category == "success" %}
+
+                        ✅
+
+                    {% elif category == "danger" %}
+
+                        ❌
+
+                    {% elif category == "warning" %}
+
+                        ⚠️
+
+                    {% else %}
+
+                        ℹ️
+
+                    {% endif %}
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+{% endwith %}
+
+
+<!-- =========================================================
+     MAIN PAGE CONTENT
+
+     Individual HTML pages will insert their content
+     inside this block.
+========================================================== -->
+
+<main>
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================== -->
+
+<footer>
+
+    <p class="mb-1">
+        © 2026 🛡️ CyberSentinel AI
+    </p>
+
+    <p class="mb-1">
+        Developed by <strong>Aryan Pukale</strong>
+    </p>
+
+    <p class="mb-0">
+        Intelligent Cyber Incident Response System
+    </p>
+
+</footer>
+
+</footer>
+
+
+<!-- =========================================================
+     BOOTSTRAP JAVASCRIPT
+========================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<!-- =========================================================
+     EXTRA PAGE JAVASCRIPT
+     Individual pages can add their own JavaScript here.
+========================================================== -->
+
+{% block extra_js %}
+
+{% endblock %}
+
+
+</body>
+
+</html>

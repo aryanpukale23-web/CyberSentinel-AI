@@ -1,0 +1,364 @@
+{% extends "base.html" %}
+
+{% block title %}Login - CyberSentinel AI{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* Login Page */
+
+.login-page {
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+/* Login Card */
+
+.login-card {
+    background: #121A17;
+    border: 1px solid #26352F;
+    border-radius: 12px;
+    padding: 45px 40px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+    transition: 0.3s ease;
+}
+
+.login-card:hover {
+    background: #18231F;
+    border-color: #00C896;
+}
+
+/* Logo */
+
+.login-logo {
+    color: #00C896;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-align: center;
+    margin: 5px 0 10px 0;
+}
+
+.login-subtitle {
+    color: #9AAEA5;
+    font-size: 15px;
+}
+
+/* Labels */
+
+.login-label {
+    color: #F3F7F5;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+/* Inputs */
+
+.login-input {
+    background: #0A0D0C !important;
+    color: #F3F7F5 !important;
+    border: 1px solid #26352F !important;
+    border-radius: 8px;
+    padding: 12px 14px;
+}
+
+.login-input::placeholder {
+    color: #9AAEA5 !important;
+}
+
+.login-input:focus {
+    background: #0A0D0C !important;
+    color: #F3F7F5 !important;
+    border-color: #00C896 !important;
+    box-shadow: 0 0 0 0.15rem rgba(0, 200, 150, 0.15) !important;
+}
+
+/* Password Wrapper */
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .login-input {
+    padding-right: 48px;
+}
+
+/* Eye Button */
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #9AAEA5;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    color: #00C896;
+}
+
+/* Login Button */
+
+.login-btn {
+    background: #00C896;
+    color: #06110D;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 700;
+    transition: 0.2s ease;
+}
+
+.login-btn:hover {
+    background: #00E0A8;
+    color: #06110D;
+}
+
+/* Error */
+
+.login-error {
+    background: rgba(255, 92, 92, 0.10);
+    border: 1px solid #FF5C5C;
+    color: #FF9A9A;
+    border-radius: 8px;
+    padding: 12px 15px;
+}
+
+/* Register Text */
+
+.register-text {
+    color: #9AAEA5;
+}
+
+.register-link {
+    color: #00C896;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link:hover {
+    color: #A3E635;
+}
+
+/* Security Note */
+
+.security-note {
+    color: #9AAEA5;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.security-note span {
+    color: #00C896;
+}
+
+
+</style>
+
+<!-- Login Page -->
+
+<div class="login-page">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-7 col-lg-6">
+
+                <div class="login-card">
+
+                    <!-- Logo -->
+
+                    <div class="text-center mb-4">
+
+                        <div class="login-logo">
+                            🛡️ CyberSentinel AI
+                        </div>
+
+                        <div class="login-subtitle mt-2">
+                            Intelligent Cyber Incident Response System
+                        </div>
+
+                    </div>
+
+                    <!-- Login Title -->
+
+                    <div class="text-center mb-4">
+
+                        <h3 style="color: #F3F7F5;">
+                            Welcome Back
+                        </h3>
+
+                        <p class="login-subtitle mb-0">
+                            Login to access your security dashboard.
+                        </p>
+
+                    </div>
+
+                    <!-- Error Message -->
+
+                    {% if error %}
+
+                    <div class="login-error mb-4">
+
+                        ⚠️ {{ error }}
+
+                    </div>
+
+                    {% endif %}
+
+                    <!-- Login Form -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('login') }}"
+                    >
+
+                        <!-- Email -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="email"
+                                class="login-label"
+                            >
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                class="form-control login-input"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                        <!-- Password -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="password"
+                                class="login-label"
+                            >
+                                Password
+                            </label>
+
+                            <div class="password-wrapper">
+
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    class="form-control login-input"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    onclick="togglePassword()"
+                                    aria-label="Show or hide password"
+                                >
+                                    👁
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Login Button -->
+
+                        <button
+                            type="submit"
+                            class="btn login-btn w-100"
+                        >
+                            🛡️ Login
+                        </button>
+
+                    </form>
+
+                    <!-- Register -->
+
+                    <div class="text-center mt-4">
+
+                        <span class="register-text">
+                            Don't have an account?
+                        </span>
+
+                        <a
+                            href="{{ url_for('register') }}"
+                            class="register-link ms-1"
+                        >
+                            Register
+                        </a>
+
+                    </div>
+
+                    <!-- Security Note -->
+
+                    <div class="security-note">
+
+                        <span>🔒 Secure Login</span>
+                        <br>
+                        Your account credentials are protected.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Password Show / Hide -->
+
+<script>
+
+function togglePassword() {
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const toggleButton =
+        document.querySelector(".password-toggle");
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        toggleButton.textContent = "🙈";
+
+    } else {
+
+        passwordInput.type = "password";
+
+        toggleButton.textContent = "👁";
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Report Cyber Incident | CyberSentinel AI</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --background: #0A0D0C;
+            --card: #121A17;
+            --primary-emerald: #00C896;
+            --text-primary: #F3F7F5;
+            --text-secondary: #9AAEA5;
+            --border: #24332D;
+            --border-hover: #355047;
+            --input-bg: #0D1210;
+
+            --emerald-soft: rgba(0, 200, 150, 0.08);
+            --emerald-border: rgba(0, 200, 150, 0.25);
+
+            --danger: #ef6b73;
+            --danger-bg: rgba(239, 107, 115, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 85% 10%,
+                    rgba(0, 200, 150, 0.055),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 10% 90%,
+                    rgba(0, 200, 150, 0.035),
+                    transparent 30%
+                ),
+                var(--background);
+
+            color: var(--text-primary);
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1050px;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            min-height: 70px;
+            background: rgba(10, 13, 12, 0.97) !important;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            color: var(--text-primary) !important;
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .brand-icon {
+            color: var(--primary-emerald);
+        }
+
+        .navbar-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-right: 20px;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--primary-emerald);
+            box-shadow: 0 0 9px rgba(0, 200, 150, 0.7);
+        }
+
+        .nav-btn {
+            border-radius: 7px;
+            padding: 7px 14px;
+            font-size: 13px;
+        }
+
+        .dashboard-btn {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+        }
+
+        .dashboard-btn:hover {
+            color: var(--text-primary);
+            background: var(--card);
+            border-color: var(--primary-emerald);
+        }
+
+        .logout-btn {
+            border-color: rgba(239, 107, 115, 0.4);
+            color: #ef8b91;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 107, 115, 0.1);
+            color: #ff9da3;
+            border-color: var(--danger);
+        }
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .page-header {
+            padding: 55px 20px 35px;
+            text-align: center;
+        }
+
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 15px;
+            margin-bottom: 18px;
+            border: 1px solid var(--emerald-border);
+            border-radius: 30px;
+            background: var(--emerald-soft);
+            color: var(--primary-emerald);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-emerald);
+        }
+
+        .page-icon {
+            margin-bottom: 10px;
+            font-size: 50px;
+            filter: drop-shadow(
+                0 0 14px rgba(0, 200, 150, 0.18)
+            );
+        }
+
+        .page-header h1 {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-size: 38px;
+            font-weight: 700;
+        }
+
+        .page-header h1 span {
+            color: var(--primary-emerald);
+        }
+
+        .page-header p {
+            max-width: 700px;
+            margin: auto;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           INCIDENT CARD
+        ========================= */
+
+        .incident-card {
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
+        }
+
+        .card-header-custom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 30px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 200, 150, 0.06),
+                    transparent
+                );
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .card-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 43px;
+            height: 43px;
+
+            border-radius: 10px;
+
+            background: var(--emerald-soft);
+            border: 1px solid var(--emerald-border);
+
+            font-size: 20px;
+        }
+
+        .card-header-custom h3 {
+            margin: 0;
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-header-custom small {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .secure-label {
+            color: var(--primary-emerald);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .card-body-custom {
+            padding: 32px;
+        }
+
+        /* =========================
+           INFORMATION BOX
+        ========================= */
+
+        .info-box {
+            display: flex;
+            gap: 13px;
+            padding: 17px 18px;
+            margin-bottom: 30px;
+
+            background: rgba(0, 200, 150, 0.06);
+            border: 1px solid var(--emerald-border);
+            border-radius: 10px;
+
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .info-icon {
+            flex-shrink: 0;
+            color: var(--primary-emerald);
+            font-size: 19px;
+        }
+
+        .info-box strong {
+            color: var(--primary-emerald);
+        }
+
+        /* =========================
+           ERROR BOX
+        ========================= */
+
+        .error-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            padding: 15px 17px;
+            margin-bottom: 25px;
+
+            background: var(--danger-bg);
+            border: 1px solid rgba(239, 107, 115, 0.28);
+            border-radius: 10px;
+
+            color: #f7b6ba;
+            font-size: 13px;
+        }
+
+        /* =========================
+           FORM SECTION
+        ========================= */
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-bottom: 22px;
+            padding-bottom: 12px;
+
+            border-bottom: 1px solid var(--border);
+
+            color: var(--text-primary);
+
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .section-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 25px;
+            height: 25px;
+
+            border-radius: 6px;
+
+            background: var(--emerald-soft);
+            border: 1px solid var(--emerald-border);
+
+            color: var(--primary-emerald);
+
+            font-size: 10px;
+        }
+
+        .form-label {
+            color: var(--text-primary) !important;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        .required {
+            color: #ef777f;
+        }
+
+        /* =========================
+           FORM CONTROLS
+        ========================= */
+
+        .form-control,
+        .form-select,
+        textarea {
+            background: var(--input-bg) !important;
+            color: var(--text-primary) !important;
+
+            border: 1px solid var(--border-hover) !important;
+            border-radius: 9px;
+
+            padding: 12px 14px;
+
+            font-size: 13px;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .form-control:hover,
+        .form-select:hover,
+        textarea:hover {
+            border-color: #466259 !important;
+        }
+
+        .form-control:focus,
+        .form-select:focus,
+        textarea:focus {
+            background: #0D1411 !important;
+            color: var(--text-primary) !important;
+
+            border-color: var(--primary-emerald) !important;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(0, 200, 150, 0.09) !important;
+
+            outline: none;
+        }
+
+        .form-control::placeholder,
+        textarea::placeholder {
+            color: #64756e !important;
+            opacity: 1;
+        }
+
+        .form-select option {
+            background: #0D1210;
+            color: var(--text-primary);
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .helper-text {
+            margin-top: 7px;
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        /* =========================
+           EVIDENCE
+        ========================= */
+
+        .evidence-box {
+            padding: 22px;
+
+            background: rgba(0, 200, 150, 0.035);
+
+            border: 1px solid var(--border);
+            border-radius: 11px;
+        }
+
+        .evidence-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .evidence-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 43px;
+            height: 43px;
+
+            flex-shrink: 0;
+
+            border-radius: 9px;
+
+            background: var(--emerald-soft);
+            border: 1px solid var(--emerald-border);
+
+            color: var(--primary-emerald);
+
+            font-size: 21px;
+        }
+
+        .evidence-box h6 {
+            margin: 0 0 5px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .evidence-box p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .file-upload-area {
+            padding: 20px;
+
+            text-align: center;
+
+            background: #0D1210;
+
+            border: 1px dashed #3A5148;
+            border-radius: 9px;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .file-upload-area:hover {
+            background: rgba(0, 200, 150, 0.025);
+            border-color: var(--primary-emerald);
+        }
+
+        .file-upload-icon {
+            margin-bottom: 8px;
+            color: var(--primary-emerald);
+            font-size: 28px;
+        }
+
+        .file-upload-title {
+            margin-bottom: 4px;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .file-upload-text {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        .file-input {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .file-input::file-selector-button {
+            margin-right: 12px;
+            padding: 8px 14px;
+
+            background: var(--primary-emerald);
+
+            color: #04140F;
+
+            border: none;
+            border-radius: 6px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .file-input::file-selector-button:hover {
+            background: #18D7A8;
+        }
+
+        #fileList {
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .selected-file {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 9px 11px;
+            margin-top: 7px;
+
+            background: #111A16;
+
+            border: 1px solid var(--border);
+            border-radius: 7px;
+
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        .selected-file-icon {
+            color: var(--primary-emerald);
+        }
+
+        /* =========================
+           ANALYSIS PREVIEW
+        ========================= */
+
+        .analysis-preview {
+            margin-top: 25px;
+            padding: 20px;
+
+            background: #0F1512;
+
+            border: 1px dashed #30443B;
+            border-radius: 10px;
+        }
+
+        .analysis-preview-title {
+            margin-bottom: 15px;
+
+            color: var(--text-secondary);
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+        }
+
+        .analysis-items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .analysis-item {
+            padding: 13px;
+
+            background: #111A16;
+
+            border: 1px solid var(--border);
+            border-radius: 8px;
+
+            text-align: center;
+        }
+
+        .analysis-item-icon {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 19px;
+        }
+
+        .analysis-item span:last-child {
+            color: var(--text-secondary);
+            font-size: 10px;
+        }
+
+        /* =========================
+           FORM ACTIONS
+        ========================= */
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 32px;
+            padding-top: 25px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .submit-btn {
+            padding: 12px 25px;
+
+            background: var(--primary-emerald);
+
+            border: 1px solid var(--primary-emerald);
+
+            color: #04140F;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            border-radius: 8px;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: #18D7A8;
+            border-color: #18D7A8;
+            color: #04140F;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 22px
+                rgba(0, 200, 150, 0.18);
+        }
+
+        .cancel-btn {
+            padding: 12px 22px;
+
+            border-radius: 8px;
+
+            color: var(--text-secondary);
+
+            border: 1px solid var(--border-hover);
+
+            font-size: 13px;
+        }
+
+        .cancel-btn:hover {
+            background: #18221E;
+            color: var(--text-primary);
+            border-color: #466259;
+        }
+
+        .security-note {
+            margin-top: 22px;
+            text-align: center;
+
+            color: #63746d;
+            font-size: 10px;
+        }
+
+        .security-note span {
+            color: var(--primary-emerald);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            margin-top: 60px;
+            padding: 25px 15px;
+
+            text-align: center;
+
+            border-top: 1px solid var(--border);
+
+            color: #63746d;
+            font-size: 12px;
+        }
+
+        footer strong {
+            color: var(--text-secondary);
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .page-header {
+                padding-top: 35px;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+            .card-body-custom {
+                padding: 22px;
+            }
+
+            .card-header-custom {
+                padding: 18px 22px;
+            }
+
+            .secure-label {
+                display: none;
+            }
+
+            .analysis-items {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+
+            .submit-btn,
+            .cancel-btn {
+                width: 100%;
+            }
+
+            .navbar-status {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .page-header p {
+                font-size: 13px;
+            }
+
+            .card-body-custom {
+                padding: 18px;
+            }
+
+            .card-header-custom {
+                padding: 16px 18px;
+            }
+
+            .evidence-box {
+                padding: 16px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <div class="container">
+
+            <a
+                class="navbar-brand"
+                href="{{ url_for('dashboard') }}"
+            >
+                <span class="brand-icon">🛡️</span>
+                CyberSentinel AI
+            </a>
+
+            <div class="d-flex align-items-center">
+
+                <div class="navbar-status">
+
+                    <span class="status-dot"></span>
+
+                    Security System Online
+
+                </div>
+
+                <a
+                    href="{{ url_for('dashboard') }}"
+                    class="btn nav-btn dashboard-btn me-2"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    href="{{ url_for('logout') }}"
+                    class="btn nav-btn logout-btn"
+                >
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
+
+    <section class="page-header">
+
+        <div class="container">
+
+            <div class="security-badge">
+
+                <span class="badge-dot"></span>
+
+                Cyber Incident Response Center
+
+            </div>
+
+            <div class="page-icon">
+                🛡️
+            </div>
+
+            <h1>
+                Report <span>Cyber Incident</span>
+            </h1>
+
+            <p>
+
+                Submit detailed information about a cybersecurity
+                incident. CyberSentinel AI will analyze the incident
+                and provide intelligent risk assessment and response
+                guidance.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN FORM
+    ========================= -->
+
+    <div class="container mb-5">
+
+        <div class="incident-card">
+
+            <!-- CARD HEADER -->
+
+            <div class="card-header-custom">
+
+                <div class="card-title-area">
+
+                    <div class="card-icon">
+                        📋
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Incident Information
+                        </h3>
+
+                        <small>
+                            Provide accurate details for analysis
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="secure-label">
+                    🔒 Secure Submission
+                </div>
+
+            </div>
+
+
+            <!-- CARD BODY -->
+
+            <div class="card-body-custom">
+
+                <!-- INFORMATION BOX -->
+
+                <div class="info-box">
+
+                    <div class="info-icon">
+                        💡
+                    </div>
+
+                    <div>
+
+                        <strong>How it works:</strong>
+
+                        Provide the incident details below.
+                        CyberSentinel AI will evaluate the information
+                        and generate a risk score, incident classification,
+                        impact analysis, response recommendations and
+                        prevention guidance.
+
+                    </div>
+
+                </div>
+
+
+                <!-- ERROR MESSAGE -->
+
+                {% if error %}
+
+                <div class="error-box">
+
+                    <span>⚠️</span>
+
+                    <div>
+                        {{ error }}
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- INCIDENT FORM -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for('report_incident') }}"
+                    enctype="multipart/form-data"
+                >
+
+
+                    <!-- =========================
+                         SECTION 01
+                    ========================= -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span class="section-number">
+                                01
+                            </span>
+
+                            🗂️ Incident Classification
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label
+                                for="incident_type"
+                                class="form-label"
+                            >
+
+                                Incident Type
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <select
+                                name="incident_type"
+                                id="incident_type"
+                                class="form-select"
+                                required
+                            >
+
+                                <option value="">
+                                    Select incident type
+                                </option>
+
+                                <option
+                                    value="Phishing"
+                                    {% if incident_type == "Phishing" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Phishing
+                                </option>
+
+                                <option
+                                    value="Malware"
+                                    {% if incident_type == "Malware" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Malware
+                                </option>
+
+                                <option
+                                    value="Ransomware"
+                                    {% if incident_type == "Ransomware" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Ransomware
+                                </option>
+
+                                <option
+                                    value="Password Attack"
+                                    {% if incident_type == "Password Attack" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Password Attack
+                                </option>
+
+                                <option
+                                    value="Account Compromise"
+                                    {% if incident_type == "Account Compromise" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Account Compromise
+                                </option>
+
+                                <option
+                                    value="Data Breach"
+                                    {% if incident_type == "Data Breach" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Data Breach
+                                </option>
+
+                                <option
+                                    value="Social Engineering"
+                                    {% if incident_type == "Social Engineering" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Social Engineering
+                                </option>
+
+                                <option
+                                    value="Suspicious Activity"
+                                    {% if incident_type == "Suspicious Activity" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Suspicious Activity
+                                </option>
+
+                                <option
+                                    value="Other"
+                                    {% if incident_type == "Other" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Other
+                                </option>
+
+                            </select>
+
+
+                            <div class="helper-text">
+
+                                Select the category that best describes
+                                the cybersecurity incident.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================
+                         SECTION 02
+                    ========================= -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span class="section-number">
+                                02
+                            </span>
+
+                            📝 Incident Details
+
+                        </div>
+
+
+                        <!-- TITLE -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="title"
+                                class="form-label"
+                            >
+
+                                Incident Title
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                name="title"
+                                id="title"
+                                class="form-control"
+                                placeholder="Example: Suspicious phishing email received"
+                                value="{{ title or '' }}"
+                                required
+                            >
+
+
+                            <div class="helper-text">
+
+                                Use a short and descriptive title
+                                for the incident.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="description"
+                                class="form-label"
+                            >
+
+                                Incident Description
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <textarea
+                                name="description"
+                                id="description"
+                                class="form-control"
+                                placeholder="Describe what happened, when it happened, what you observed, affected systems or accounts, suspicious activity, and any other relevant details..."
+                                required
+                            >{{ description or '' }}</textarea>
+
+
+                            <div class="helper-text">
+
+                                Include important details such as
+                                what happened, when it happened,
+                                affected systems and suspicious activity.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================
+                         SECTION 03
+                    ========================= -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span class="section-number">
+                                03
+                            </span>
+
+                            ⚠️ Risk Assessment Information
+
+                        </div>
+
+
+                        <div class="row g-4">
+
+                            <!-- IMPACT -->
+
+                            <div class="col-12 col-md-4">
+
+                                <label
+                                    for="impact"
+                                    class="form-label"
+                                >
+
+                                    Impact Level
+
+                                    <span class="required">
+                                        *
+                                    </span>
+
+                                </label>
+
+
+                                <select
+                                    name="impact"
+                                    id="impact"
+                                    class="form-select"
+                                    required
+                                >
+
+                                    <option value="low">
+                                        Low
+                                    </option>
+
+                                    <option
+                                        value="medium"
+                                        selected
+                                    >
+                                        Medium
+                                    </option>
+
+                                    <option value="high">
+                                        High
+                                    </option>
+
+                                </select>
+
+
+                                <div class="helper-text">
+
+                                    Select how seriously the incident
+                                    affected your system or account.
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SENSITIVE DATA -->
+
+                            <div class="col-12 col-md-4">
+
+                                <label
+                                    for="sensitive_data"
+                                    class="form-label"
+                                >
+
+                                    Sensitive Data Involved
+
+                                    <span class="required">
+                                        *
+                                    </span>
+
+                                </label>
+
+
+                                <select
+                                    name="sensitive_data"
+                                    id="sensitive_data"
+                                    class="form-select"
+                                    required
+                                >
+
+                                    <option
+                                        value="no"
+                                        selected
+                                    >
+                                        No
+                                    </option>
+
+                                    <option value="yes">
+                                        Yes
+                                    </option>
+
+                                </select>
+
+
+                                <div class="helper-text">
+
+                                    Select Yes if personal, financial,
+                                    password or confidential data may
+                                    have been exposed.
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- FREQUENCY -->
+
+                            <div class="col-12 col-md-4">
+
+                                <label
+                                    for="frequency"
+                                    class="form-label"
+                                >
+
+                                    Incident Frequency
+
+                                    <span class="required">
+                                        *
+                                    </span>
+
+                                </label>
+
+
+                                <select
+                                    name="frequency"
+                                    id="frequency"
+                                    class="form-select"
+                                    required
+                                >
+
+                                    <option
+                                        value="once"
+                                        selected
+                                    >
+                                        Once
+                                    </option>
+
+                                    <option value="occasionally">
+                                        Occasionally
+                                    </option>
+
+                                    <option value="frequently">
+                                        Frequently
+                                    </option>
+
+                                </select>
+
+
+                                <div class="helper-text">
+
+                                    Select how often the suspicious
+                                    activity has occurred.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================
+                         SECTION 04
+                    ========================= -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <span class="section-number">
+                                04
+                            </span>
+
+                            📎 Evidence & Investigation
+
+                        </div>
+
+
+                        <div class="evidence-box">
+
+
+                            <div class="evidence-header">
+
+                                <div class="evidence-icon">
+                                    📎
+                                </div>
+
+                                <div>
+
+                                    <h6>
+                                        Upload Incident Evidence
+                                    </h6>
+
+                                    <p>
+
+                                        Attach screenshots, suspicious emails,
+                                        logs, documents or other evidence that
+                                        can help during incident investigation.
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="file-upload-area">
+
+                                <div class="file-upload-icon">
+                                    📁
+                                </div>
+
+                                <div class="file-upload-title">
+                                    Select evidence files
+                                </div>
+
+                                <div class="file-upload-text">
+
+                                    JPG, JPEG, PNG, PDF, TXT, LOG and EML files
+
+                                </div>
+
+
+                                <input
+                                    type="file"
+                                    name="evidence"
+                                    id="evidence"
+                                    class="form-control file-input"
+                                    accept=".jpg,.jpeg,.png,.pdf,.txt,.log,.eml"
+                                    multiple
+                                >
+
+
+                                <div id="fileList"></div>
+
+
+                                <div class="helper-text">
+
+                                    You can select multiple files.
+                                    Avoid uploading passwords or other
+                                    sensitive credentials.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================
+                         ANALYSIS PREVIEW
+                    ========================= -->
+
+                    <div class="analysis-preview">
+
+                        <div class="analysis-preview-title">
+
+                            🧠 CyberSentinel AI Analysis
+
+                        </div>
+
+
+                        <div class="analysis-items">
+
+
+                            <div class="analysis-item">
+
+                                <span class="analysis-item-icon">
+                                    📊
+                                </span>
+
+                                <span>
+                                    Risk Score
+                                </span>
+
+                            </div>
+
+
+                            <div class="analysis-item">
+
+                                <span class="analysis-item-icon">
+                                    ⚠️
+                                </span>
+
+                                <span>
+                                    Impact Analysis
+                                </span>
+
+                            </div>
+
+
+                            <div class="analysis-item">
+
+                                <span class="analysis-item-icon">
+                                    🛡️
+                                </span>
+
+                                <span>
+                                    Response Guidance
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================
+                         ACTION BUTTONS
+                    ========================= -->
+
+                    <div class="form-actions">
+
+
+                        <a
+                            href="{{ url_for('dashboard') }}"
+                            class="btn cancel-btn"
+                        >
+
+                            ← Cancel
+
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="btn submit-btn"
+                        >
+
+                            🧠 Analyze Incident
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+                <!-- SECURITY NOTE -->
+
+                <div class="security-note">
+
+                    <span>●</span>
+
+                    Your incident information is processed through
+                    the CyberSentinel AI analysis workflow.
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <p class="mb-1">
+
+            © 2026 🛡️ CyberSentinel AI
+
+        </p>
+
+        <p class="mb-1">
+
+            Developed by
+            <strong>Aryan Pukale</strong>
+
+        </p>
+
+        <p class="mb-0">
+
+            Intelligent Cyber Incident Response System
+
+        </p>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        const evidenceInput =
+            document.getElementById("evidence");
+
+        const fileList =
+            document.getElementById("fileList");
+
+
+        evidenceInput.addEventListener(
+            "change",
+            function () {
+
+                fileList.innerHTML = "";
+
+
+                if (this.files.length === 0) {
+                    return;
+                }
+
+
+                Array.from(this.files).forEach(
+                    function (file) {
+
+                        const fileItem =
+                            document.createElement("div");
+
+
+                        fileItem.className =
+                            "selected-file";
+
+
+                        const icon =
+                            document.createElement("span");
+
+                        icon.className =
+                            "selected-file-icon";
+
+                        icon.textContent =
+                            "📄";
+
+
+                        const fileName =
+                            document.createElement("span");
+
+                        fileName.textContent =
+                            file.name;
+
+
+                        const fileSize =
+                            document.createElement("span");
+
+                        fileSize.style.marginLeft =
+                            "auto";
+
+                        fileSize.textContent =
+                            (file.size / 1024).toFixed(1)
+                            + " KB";
+
+
+                        fileItem.appendChild(icon);
+
+                        fileItem.appendChild(fileName);
+
+                        fileItem.appendChild(fileSize);
+
+
+                        fileList.appendChild(fileItem);
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

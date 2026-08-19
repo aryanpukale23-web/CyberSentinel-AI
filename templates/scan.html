@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Website Security Scanner | CyberSentinel AI</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* General */
+        body {
+            background: #1f2428;
+            color: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+        }
+
+        /* Navbar */
+        .navbar {
+            border-bottom: 1px solid #34445c;
+        }
+
+        .navbar-brand {
+            font-size: 23px;
+            font-weight: 700;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 50px 20px 30px;
+        }
+
+        .page-header .icon {
+            font-size: 55px;
+        }
+
+        .page-header h1 {
+            color: #00d9ff;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            color: #cbd5e1;
+            font-size: 17px;
+        }
+
+        /* Scanner Card */
+        .scanner-card {
+            background: #202c40;
+            border: 1px solid #34445c;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .scanner-card h3 {
+            color: #00d9ff;
+            font-weight: 600;
+        }
+
+        /* Form */
+        .form-label {
+            color: #7dd3fc;
+            font-weight: 600;
+        }
+
+        .form-control {
+            background: #111820;
+            color: #ffffff;
+            border: 1px solid #46566d;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .form-control:focus {
+            background: #111820;
+            color: #ffffff;
+            border-color: #00d9ff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 217, 255, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: #94a3b8;
+        }
+
+        /* Scan Button */
+        .scan-btn {
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+
+        /* Result Card */
+        .result-card {
+            background: #202c40;
+            border: 1px solid #34445c;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .result-card h3 {
+            color: #00d9ff;
+            font-weight: 600;
+        }
+
+        /* Result Information */
+        .result-item {
+            background: #111820;
+            border: 1px solid #29384a;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .result-label {
+            color: #7dd3fc;
+            font-weight: 600;
+        }
+
+        .result-value {
+            color: #f8fafc;
+            word-break: break-word;
+        }
+
+        /* Risk Score */
+        .risk-score {
+            font-size: 55px;
+            font-weight: 700;
+            color: #00d9ff;
+        }
+
+        .risk-low {
+            color: #20c997;
+            font-weight: 700;
+        }
+
+        .risk-medium {
+            color: #ffc107;
+            font-weight: 700;
+        }
+
+        .risk-high {
+            color: #ff4d4d;
+            font-weight: 700;
+        }
+
+        /* Security Headers */
+        .header-row {
+            background: #111820;
+            border: 1px solid #29384a;
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+        }
+
+        .header-name {
+            color: #f8fafc;
+            font-weight: 600;
+        }
+
+        .header-present {
+            color: #20c997;
+            font-weight: 600;
+        }
+
+        .header-missing {
+            color: #ff4d4d;
+            font-weight: 600;
+        }
+
+        /* Issues */
+        .issue-box {
+            background: #111820;
+            border-left: 4px solid #ff4d4d;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            color: #f8fafc;
+        }
+
+        /* Alerts */
+        .alert {
+            border-radius: 10px;
+        }
+
+        .alert-info {
+            background: #102c38;
+            color: #bfefff;
+            border: 1px solid #1c6178;
+        }
+
+        .alert-danger {
+            background: #351b20;
+            color: #ffd5d9;
+            border: 1px solid #73323a;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding: 25px;
+            text-align: center;
+            border-top: 1px solid #343a40;
+            color: #94a3b8;
+        }
+
+        /* Bootstrap Overrides */
+        .text-dark {
+            color: #f1f5f9 !important;
+        }
+
+        .text-muted {
+            color: #94a3b8 !important;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand text-info"
+            href="{{ url_for('dashboard') }}"
+        >
+            CyberSentinel AI
+        </a>
+
+        <div>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="btn btn-outline-light btn-sm me-2"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="btn btn-outline-danger btn-sm"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<section class="page-header">
+
+    <div class="container">
+
+        <div class="icon"></div>
+
+        <h1>
+            Website Security Scanner
+        </h1>
+
+        <p>
+            Analyze website security, SSL certificate
+            and security headers.
+        </p>
+
+    </div>
+
+</section>
+
+<div class="container">
+
+    <div class="scanner-card">
+
+        <h3 class="mb-4">
+            Enter Website URL
+        </h3>
+
+        <form
+            method="POST"
+            action="{{ url_for('scan') }}"
+        >
+
+            <div class="mb-4">
+
+                <label
+                    for="url"
+                    class="form-label"
+                >
+                    Website URL
+                </label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    id="url"
+                    name="url"
+                    placeholder="https://example.com"
+                    value="{{ request.form.get('url', '') }}"
+                    required
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-info scan-btn"
+            >
+                Analyze Website
+            </button>
+
+        </form>
+
+    </div>
+
+    {% if result %}
+
+    <div class="result-card">
+
+        <h3 class="mb-4">
+            Security Analysis Result
+        </h3>
+
+        <div class="result-item">
+
+            <div class="result-label">
+                Scanned URL
+            </div>
+
+            <div class="result-value">
+                {{ result.get("url", "Unknown") }}
+            </div>
+
+        </div>
+
+        <div class="result-item">
+
+            <div class="result-label">
+                Website Status
+            </div>
+
+            <div class="result-value">
+
+                {% if result.get("reachable") %}
+
+                    <span class="header-present">
+                        ✓ Website is reachable
+                    </span>
+
+                {% else %}
+
+                    <span class="header-missing">
+                        ✗ Website could not be reached
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="result-item">
+
+            <div class="result-label">
+                HTTP Status Code
+            </div>
+
+            <div class="result-value">
+                {{ result.get("status_code", "Unknown") }}
+            </div>
+
+        </div>
+
+        <div class="result-item">
+
+            <div class="result-label">
+                HTTPS Enabled
+            </div>
+
+            <div class="result-value">
+
+                {% if result.get("https") %}
+
+                    <span class="header-present">
+                        ✓ Enabled
+                    </span>
+
+                {% else %}
+
+                    <span class="header-missing">
+                        ✗ Not Enabled
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="result-item">
+
+            <div class="result-label">
+                SSL Certificate
+            </div>
+
+            <div class="result-value">
+
+                {% if result.get("ssl", {}).get("valid") %}
+
+                    <span class="header-present">
+                        ✓ Valid
+                    </span>
+
+                {% else %}
+
+                    <span class="header-missing">
+                        ✗ Could not be validated
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="result-item">
+
+            <div class="result-label">
+                SSL Issuer
+            </div>
+
+            <div class="result-value">
+                {{ result.get("ssl", {}).get("issuer", "Unknown") }}
+            </div>
+
+        </div>
+
+        <div class="result-item">
+
+            <div class="result-label">
+                SSL Expiry
+            </div>
+
+            <div class="result-value">
+                {{ result.get("ssl", {}).get("expires", "Unknown") }}
+            </div>
+
+        </div>
+
+        <div class="result-item text-center">
+
+            <div class="result-label">
+                Security Risk Score
+            </div>
+
+            <div class="risk-score">
+                {{ result.get("risk_score", 0) }}/100
+            </div>
+
+            {% if result.get("risk_level") == "High Risk" %}
+
+                <div class="risk-high">
+                    HIGH RISK
+                </div>
+
+            {% elif result.get("risk_level") == "Medium Risk" %}
+
+                <div class="risk-medium">
+                    MEDIUM RISK
+                </div>
+
+            {% else %}
+
+                <div class="risk-low">
+                    LOW RISK
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="mt-4">
+
+            <h4 class="section-title">
+                Security Headers
+            </h4>
+
+            {% if result.get("security_headers") %}
+
+                {% for header, enabled in result["security_headers"].items() %}
+
+                    <div class="header-row d-flex justify-content-between">
+
+                        <span class="header-name">
+                            {{ header }}
+                        </span>
+
+                        {% if enabled %}
+
+                            <span class="header-present">
+                                ✓ Present
+                            </span>
+
+                        {% else %}
+
+                            <span class="header-missing">
+                                ✗ Missing
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="info-box">
+                    No security header information available.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="mt-4">
+
+            <h4 class="section-title">
+                Security Issues
+            </h4>
+
+            {% if result.get("issues") %}
+
+                {% for issue in result["issues"] %}
+
+                    <div class="issue-box">
+                        {{ issue }}
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="alert alert-info">
+                    ✓ No major security issues detected.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<footer>
+
+    <p class="mb-0">
+        © 2026 CyberSentinel AI |Developed by Aryan Pukale|
+        Intelligent Cyber Security Analysis
+    </p>
+
+</footer>
+
+</body>
+
+</html>

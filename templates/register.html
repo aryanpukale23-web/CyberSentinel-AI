@@ -1,0 +1,606 @@
+{% extends "base.html" %}
+
+{% block title %}Register - CyberSentinel AI{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* Register Page */
+
+.register-page {
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 20px;
+}
+
+/* Register Card */
+
+.register-card {
+    width: 100%;
+    max-width: 520px;
+
+    background: #121A17;
+    border: 1px solid #26352F;
+    border-radius: 12px;
+
+    padding: 40px;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+
+    transition: 0.3s ease;
+}
+
+.register-card:hover {
+    background: #18231F;
+    border-color: #00C896;
+}
+
+/* Logo */
+
+.register-logo {
+    color: #00C896;
+    font-size: 30px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+
+    text-align: center;
+
+    margin-bottom: 10px;
+}
+
+.register-subtitle {
+    color: #9AAEA5;
+    font-size: 15px;
+}
+
+/* Labels */
+
+.register-label {
+    color: #F3F7F5;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+/* Inputs */
+
+.register-input {
+    background: #0A0D0C !important;
+    color: #F3F7F5 !important;
+
+    border: 1px solid #26352F !important;
+    border-radius: 8px;
+
+    padding: 12px 14px;
+}
+
+.register-input::placeholder {
+    color: #9AAEA5 !important;
+}
+
+.register-input:focus {
+    background: #0A0D0C !important;
+    color: #F3F7F5 !important;
+
+    border-color: #00C896 !important;
+
+    box-shadow:
+        0 0 0 0.15rem rgba(0, 200, 150, 0.15) !important;
+}
+
+/* Password Wrapper */
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .register-input {
+    padding-right: 50px;
+}
+
+/* Password Toggle */
+
+.password-toggle {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+
+    color: #9AAEA5;
+
+    font-size: 19px;
+
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    color: #00C896;
+}
+
+/* Password Requirements */
+
+.password-requirements {
+    margin-top: 12px;
+
+    padding: 14px 16px;
+
+    background: #0A0D0C;
+
+    border: 1px solid #26352F;
+    border-radius: 8px;
+}
+
+.password-requirements-title {
+    color: #F3F7F5;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    margin-bottom: 9px;
+}
+
+.requirement {
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+.requirement.valid {
+    color: #22C55E;
+}
+
+.requirement.invalid {
+    color: #9AAEA5;
+}
+
+/* Register Button */
+
+.register-btn {
+    width: 100%;
+
+    background: #00C896;
+    color: #06110D;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 12px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+.register-btn:hover {
+    background: #00E0A8;
+    color: #06110D;
+}
+
+/* Login Link */
+
+.login-text {
+    color: #9AAEA5;
+}
+
+.login-link {
+    color: #00C896;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+.login-link:hover {
+    color: #A3E635;
+}
+
+/* Security Note */
+
+.security-note {
+    color: #9AAEA5;
+
+    font-size: 13px;
+
+    text-align: center;
+
+    margin-top: 20px;
+}
+
+.security-note span {
+    color: #00C896;
+}
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .register-card {
+        padding: 30px 22px;
+    }
+
+    .register-logo {
+        font-size: 27px;
+    }
+
+}
+
+</style>
+
+<!-- Register Page -->
+
+<div class="register-page">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-md-8 col-lg-6">
+
+                <div class="register-card">
+
+                    <!-- Logo -->
+
+                    <div class="text-center mb-4">
+
+                        <div class="register-logo">
+                            🛡️ CyberSentinel AI
+                        </div>
+
+                        <div class="register-subtitle">
+                            Intelligent Cyber Incident Response System
+                        </div>
+
+                    </div>
+
+                    <!-- Title -->
+
+                    <div class="text-center mb-4">
+
+                        <h3 style="color: #F3F7F5;">
+                            Create Your Account
+                        </h3>
+
+                        <p class="register-subtitle mb-0">
+                            Join CyberSentinel AI and manage your security incidents.
+                        </p>
+
+                    </div>
+
+                    <!-- Error Message -->
+
+                    {% if error %}
+
+                    <div
+                        class="mb-4"
+                        style="
+                            background: rgba(255, 92, 92, 0.10);
+                            border: 1px solid #FF5C5C;
+                            color: #FF9A9A;
+                            border-radius: 8px;
+                            padding: 12px 15px;
+                        "
+                    >
+
+                        ⚠️ {{ error }}
+
+                    </div>
+
+                    {% endif %}
+
+                    <!-- Register Form -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('register') }}"
+                    >
+
+                        <!-- Full Name -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="full_name"
+                                class="register-label"
+                            >
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="full_name"
+                                name="full_name"
+                                class="form-control register-input"
+                                placeholder="Enter your full name"
+                                required
+                                pattern="[A-Za-z]+( [A-Za-z]+)*"
+                                title="Name must contain letters and spaces only."
+                                autocomplete="name"
+                            >
+
+                        </div>
+
+                        <!-- Email -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="email"
+                                class="register-label"
+                            >
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-control register-input"
+                                placeholder="Enter your email"
+                                required
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+                        <!-- Password -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="password"
+                                class="register-label"
+                            >
+                                Password
+                            </label>
+
+                            <div class="password-wrapper">
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-control register-input"
+                                    placeholder="Create a strong password"
+                                    required
+                                    autocomplete="new-password"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    id="togglePassword"
+                                    onclick="togglePasswordVisibility()"
+                                    aria-label="Show password"
+                                >
+                                    👁️
+                                </button>
+
+                            </div>
+
+                            <!-- Password Requirements -->
+
+                            <div class="password-requirements">
+
+                                <div class="password-requirements-title">
+                                    Password must contain:
+                                </div>
+
+                                <div
+                                    id="lengthRequirement"
+                                    class="requirement invalid"
+                                >
+                                    ❌ Minimum 6 characters
+                                </div>
+
+                                <div
+                                    id="uppercaseRequirement"
+                                    class="requirement invalid"
+                                >
+                                    ❌ At least one capital letter
+                                </div>
+
+                                <div
+                                    id="lowercaseRequirement"
+                                    class="requirement invalid"
+                                >
+                                    ❌ At least one small letter
+                                </div>
+
+                                <div
+                                    id="numberRequirement"
+                                    class="requirement invalid"
+                                >
+                                    ❌ At least one number
+                                </div>
+
+                                <div
+                                    id="specialRequirement"
+                                    class="requirement invalid"
+                                >
+                                    ❌ At least one special character
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Register Button -->
+
+                        <button
+                            type="submit"
+                            class="btn register-btn"
+                        >
+                            🛡️ Create Account
+                        </button>
+
+                    </form>
+
+                    <!-- Login Link -->
+
+                    <div class="text-center mt-4">
+
+                        <span class="login-text">
+                            Already have an account?
+                        </span>
+
+                        <a
+                            href="{{ url_for('login') }}"
+                            class="login-link ms-1"
+                        >
+                            Login
+                        </a>
+
+                    </div>
+
+                    <!-- Security Note -->
+
+                    <div class="security-note">
+
+                        <span>🔒 Secure Registration</span>
+
+                        <br>
+
+                        Your account credentials are protected.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Password Show / Hide + Validation -->
+
+<script>
+
+const passwordInput =
+    document.getElementById("password");
+
+/* Show / Hide Password */
+
+function togglePasswordVisibility() {
+
+    const toggleButton =
+        document.getElementById("togglePassword");
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        toggleButton.textContent = "🙈";
+
+        toggleButton.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    } else {
+
+        passwordInput.type = "password";
+
+        toggleButton.textContent = "👁️";
+
+        toggleButton.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+    }
+}
+
+/* Password Validation */
+
+passwordInput.addEventListener(
+    "input",
+    function () {
+
+        const password =
+            passwordInput.value;
+
+        updateRequirement(
+            "lengthRequirement",
+            password.length >= 6,
+            "Minimum 6 characters"
+        );
+
+        updateRequirement(
+            "uppercaseRequirement",
+            /[A-Z]/.test(password),
+            "At least one capital letter"
+        );
+
+        updateRequirement(
+            "lowercaseRequirement",
+            /[a-z]/.test(password),
+            "At least one small letter"
+        );
+
+        updateRequirement(
+            "numberRequirement",
+            /[0-9]/.test(password),
+            "At least one number"
+        );
+
+        updateRequirement(
+            "specialRequirement",
+            /[^A-Za-z0-9]/.test(password),
+            "At least one special character"
+        );
+
+    }
+);
+
+/* Update Password Requirement */
+
+function updateRequirement(
+    elementId,
+    isValid,
+    text
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    if (isValid) {
+
+        element.classList.remove(
+            "invalid"
+        );
+
+        element.classList.add(
+            "valid"
+        );
+
+        element.textContent =
+            "✅ " + text;
+
+    } else {
+
+        element.classList.remove(
+            "valid"
+        );
+
+        element.classList.add(
+            "invalid"
+        );
+
+        element.textContent =
+            "❌ " + text;
+    }
+}
+
+</script>
+
+{% endblock %}

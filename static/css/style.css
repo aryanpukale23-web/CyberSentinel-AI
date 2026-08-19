@@ -1,0 +1,28 @@
+.feature-card{
+
+    background:#1e293b;
+    color:white;
+    border:1px solid #334155;
+    transition:.3s;
+    border-radius:15px;
+
+}
+
+.feature-card:hover{
+
+    transform:translateY(-8px);
+    box-shadow:0 0 20px #38bdf8;
+
+}
+
+hr{
+
+    border:1px solid #334155;
+
+}
+
+.text-secondary{
+
+    color:#cbd5e1 !important;
+
+}
