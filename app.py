@@ -19,7 +19,11 @@ from werkzeug.security import (
 
 from werkzeug.utils import secure_filename
 
-from utils.database import get_db_connection
+from utils.database import (
+    get_db_connection,
+    init_db
+)
+
 from utils.security import analyze_incident
 
 
@@ -32,7 +36,7 @@ app.secret_key = os.environ.get(
     "dev-secret-key"
 )
 
-
+init_db()
 # EVIDENCE UPLOAD CONFIGURATION
 
 UPLOAD_FOLDER = os.path.join(
