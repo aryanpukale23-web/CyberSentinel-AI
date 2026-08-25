@@ -138,7 +138,70 @@
 
             color: #00C896;
         }
+/* HEADER CONTENT */
 
+.header-content {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+/* REPORT BUTTON */
+
+.reports-btn {
+
+    display: inline-block;
+
+    padding: 11px 20px;
+
+    background: #00C896;
+
+    color: #07100C;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+}
+
+
+.reports-btn:hover {
+
+    background: #00B386;
+
+    color: #07100C;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .header-content {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .reports-btn {
+
+        margin-top: 5px;
+    }
+
+}
 
         /* BUTTON */
 
@@ -165,7 +228,26 @@
 
             color: #07100C;
         }
+        /* REPORTS BUTTON */
 
+.reports-btn {
+    display: inline-block;
+    margin-left: 25px;
+    padding: 8px 16px;
+    background: #00C896;
+    color: #07100C;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.reports-btn:hover {
+    background: #00B386;
+    color: #07100C;
+}
 
         /* STAT CARDS */
 
@@ -1379,25 +1461,36 @@
 
     <div class="container">
 
-        <h1>
+        <div class="header-content">
 
-            Welcome,
+            <div>
 
-            <span class="welcome-name">
-                {{ username|capitalize }}
-            </span>
+                <h1>
+                    Welcome,
 
-            👋
+                    <span class="welcome-name">
+                        {{ username|capitalize }}
+                    </span>
 
-        </h1>
+                    👋
+                </h1>
+
+                <p>
+                    Intelligent cybersecurity incident monitoring
+                    and response dashboard.
+                </p>
+
+            </div>
 
 
-        <p>
+            <a
+                href="{{ url_for('report_incident') }}"
+                class="reports-btn"
+            >
+                📝 Report Incident
+            </a>
 
-            Intelligent cybersecurity incident monitoring
-            and response dashboard.
-
-        </p>
+        </div>
 
     </div>
 
@@ -2196,7 +2289,7 @@
 
 </footer>
 
-</footer>
+
 
 
 <!-- JAVASCRIPT -->
