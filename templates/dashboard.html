@@ -83,7 +83,86 @@
 
             font-weight: 750;
         }
+/* DASHBOARD RADAR LOGO */
 
+.cyber-dashboard-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #00C896 !important;
+    text-decoration: none;
+}
+
+.dashboard-radar-logo {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #00C896;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(0, 200, 150, 0.15),
+        transparent 70%
+    );
+    box-shadow: 0 0 10px rgba(0, 200, 150, 0.35);
+    overflow: hidden;
+}
+
+.dashboard-radar-logo::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(0, 200, 150, 0.5);
+    border-radius: 50%;
+}
+
+.dashboard-radar-sweep {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 0;
+    left: 50%;
+    transform-origin: bottom left;
+
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(0, 200, 150, 0.7)
+    );
+
+    border-left: 1px solid #00C896;
+
+    animation: dashboardLogoRadar 2s linear infinite;
+}
+
+.dashboard-radar-center {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #A3E635;
+    border-radius: 50%;
+    box-shadow: 0 0 7px #A3E635;
+    z-index: 5;
+}
+
+@keyframes dashboardLogoRadar {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
 
         .navbar-brand:hover {
 
@@ -1419,6 +1498,92 @@
     }
 
 }
+@media (max-width: 700px) {
+
+    ...
+
+}
+
+
+/* 
+   DASHBOARD NAVBAR RADAR
+ */
+
+.cyber-dashboard-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    color: #00C896 !important;
+    text-decoration: none !important;
+}
+
+.radar-logo-dashboard {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border: 2px solid #00C896;
+    border-radius: 50%;
+    background: rgba(0, 200, 150, 0.08);
+    box-shadow: 0 0 10px rgba(0, 200, 150, 0.4);
+    overflow: hidden;
+}
+
+.radar-logo-dashboard::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(0, 200, 150, 0.5);
+    border-radius: 50%;
+}
+
+.radar-sweep-dashboard {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 0;
+    left: 50%;
+    transform-origin: bottom left;
+
+    background: linear-gradient(
+        135deg,
+        rgba(0, 200, 150, 0.8),
+        transparent
+    );
+
+    border-left: 1px solid #00C896;
+
+    animation: dashboardRadarSpin 2s linear infinite;
+}
+
+.radar-dot-dashboard {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #A3E635;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #A3E635;
+}
+
+@keyframes dashboardRadarSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
 
     </style>
 
@@ -1441,13 +1606,17 @@
                    w-100"
         >
 
-            <a
-                href="{{ url_for('dashboard') }}"
-                class="navbar-brand"
-            >
-                🛡️ CyberSentinel AI
-            </a>
+<a
+    href="{{ url_for('dashboard') }}"
+    class="navbar-brand cyber-dashboard-logo"
+>
+    <span class="radar-logo-dashboard">
+        <span class="radar-sweep-dashboard"></span>
+        <span class="radar-dot-dashboard"></span>
+    </span>
 
+    <span>CyberSentinel AI</span>
+</a>
 
             <div
                 class="d-flex
@@ -1637,7 +1806,7 @@
 
                 <div class="monitor-title">
 
-                    <span>🛡️</span>
+                    <span></span>
                     Incident Response Monitor
 
                 </div>
