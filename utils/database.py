@@ -1,28 +1,20 @@
 import sqlite3
 import os
 
-# DATABASE PATH
+# Project root = CyberSentinel-AI
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATABASE = os.path.join(BASE_DIR, "database", "database.db")
 
-# SCHEMA PATH
-SCHEMA_FILE = os.path.join(
-    BASE_DIR,
-    "database",
-    "schema.sql"
-)
+DATABASE_DIR = os.path.join(BASE_DIR, "database")
+DATABASE = os.path.join(DATABASE_DIR, "database.db")
+SCHEMA_FILE = os.path.join(DATABASE_DIR, "schema.sql")
 
 
 def get_db_connection():
-
-    # Make sure database folder exists
-    os.makedirs(
-        os.path.dirname(DATABASE),
-        exist_ok=True
-    )
+    os.makedirs(DATABASE_DIR, exist_ok=True)
 
     conn = sqlite3.connect(
-        DATABASE
+        DATABASE,
+        timeout=10
     )
 
     conn.row_factory = sqlite3.Row
@@ -31,33 +23,23 @@ def get_db_connection():
 
 
 def init_db():
-
-    # Make sure database folder exists
-    os.makedirs(
-        os.path.dirname(DATABASE),
-        exist_ok=True
-    )
+    os.makedirs(DATABASE_DIR, exist_ok=True)
 
     conn = sqlite3.connect(
-        DATABASE
+        DATABASE,
+        timeout=10
     )
 
     try:
-
         with open(
             SCHEMA_FILE,
             "r",
             encoding="utf-8"
         ) as file:
-
             schema = file.read()
 
-        conn.executescript(
-            schema
-        )
-
+        conn.executescript(schema)
         conn.commit()
 
     finally:
-
         conn.close()
