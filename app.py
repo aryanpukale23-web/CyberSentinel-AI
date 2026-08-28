@@ -517,7 +517,7 @@ def login():
                 email,
                 password
             FROM users
-            WHERE email = ?
+            WHERE email = %s
             """,
             (email,)
         ).fetchone()
@@ -621,7 +621,7 @@ def register():
             """
             SELECT id
             FROM users
-            WHERE email = ?
+            WHERE email = %s
             """,
             (email,)
         ).fetchone()
@@ -653,7 +653,7 @@ def register():
                 email,
                 password
             )
-            VALUES (?, ?, ?)
+            VALUES (%s, %s, %s)
             """,
             (
                 full_name,
@@ -692,7 +692,7 @@ def dashboard():
         """
         SELECT COUNT(*) AS count
         FROM incidents
-        WHERE user_id = ?
+        WHERE user_id = %s
         """,
         (user_id,)
     ).fetchone()["count"]
@@ -703,7 +703,7 @@ def dashboard():
         """
         SELECT COUNT(*) AS count
         FROM incidents
-        WHERE user_id = ?
+        WHERE user_id = %s
         AND risk_level = 'High'
         """,
         (user_id,)
@@ -715,7 +715,7 @@ def dashboard():
         """
         SELECT COUNT(*) AS count
         FROM incidents
-        WHERE user_id = ?
+        WHERE user_id = %s
         AND risk_level = 'Medium'
         """,
         (user_id,)
@@ -727,7 +727,7 @@ def dashboard():
         """
         SELECT COUNT(*) AS count
         FROM incidents
-        WHERE user_id = ?
+        WHERE user_id = %s
         AND risk_level = 'Low'
         """,
         (user_id,)
@@ -739,7 +739,7 @@ def dashboard():
         """
         SELECT AVG(risk_score) AS average_score
         FROM incidents
-        WHERE user_id = ?
+        WHERE user_id = %s
         """,
         (user_id,)
     ).fetchone()
@@ -757,7 +757,7 @@ def dashboard():
         """
         SELECT COUNT(*) AS count
         FROM incidents
-        WHERE user_id = ?
+        WHERE user_id = %s
         AND evidence_path IS NOT NULL
         AND evidence_path != ''
         """,
@@ -776,7 +776,7 @@ def dashboard():
             risk_score,
             risk_level
         FROM incidents
-        WHERE user_id = ?
+        WHERE user_id = %s
         ORDER BY risk_score DESC
         LIMIT 1
         """,
@@ -796,7 +796,7 @@ def dashboard():
             status,
             created_at
         FROM incidents
-        WHERE user_id = ?
+        WHERE user_id = %s
         ORDER BY created_at DESC
         """,
         (user_id,)
@@ -810,9 +810,9 @@ def dashboard():
             incident_type,
             COUNT(*) AS count
         FROM incidents
-        WHERE user_id = ?
+        WHERE user_id = %s
         GROUP BY incident_type
-        ORDER BY count DESC
+        ORDER BY COUNT(*) DESC
         """,
         (user_id,)
     ).fetchall()
@@ -1083,24 +1083,28 @@ def report_incident():
 
     try:
         cursor = conn.execute(
-            """
-            INSERT INTO incidents
-            (
-                user_id,
-                incident_type,
-                title,
-                description,
-                risk_score,
-                risk_level,
-                impact,
-                reason,
-                response_recommendation,
-                prevention_tips,
-                status,
-                evidence_path
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
+    """
+    INSERT INTO incidents
+    (
+        user_id,
+        incident_type,
+        title,
+        description,
+        risk_score,
+        risk_level,
+        impact,
+        reason,
+        response_recommendation,
+        prevention_tips,
+        status,
+        evidence_path
+    )
+    VALUES (
+        %s, %s, %s, %s, %s, %s,
+        %s, %s, %s, %s, %s, %s
+    )
+    RETURNING id
+    """,
             (
                 session["user_id"],
                 incident_type,
@@ -1117,7 +1121,7 @@ def report_incident():
             )
         )
 
-        incident_id = cursor.lastrowid
+        incident_id = cursor.fetchone()["id"]
         conn.commit()
 
     except Exception as e:
@@ -1188,8 +1192,8 @@ def incident_details(incident_id):
             evidence_path,
             created_at
         FROM incidents
-        WHERE id = ?
-        AND user_id = ?
+        WHERE id = %s
+        AND user_id = %s
         """,
         (
             incident_id,
@@ -1242,8 +1246,8 @@ def download_incident_pdf(incident_id):
             evidence_path,
             created_at
         FROM incidents
-        WHERE id = ?
-        AND user_id = ?
+        WHERE id = %s
+        AND user_id = %s
         """,
         (
             incident_id,
