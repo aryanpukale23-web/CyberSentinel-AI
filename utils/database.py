@@ -1,45 +1,79 @@
-import sqlite3
 import os
+import psycopg
+from psycopg.rows import dict_row
 
-# Project root = CyberSentinel-AI
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DATABASE_DIR = os.path.join(BASE_DIR, "database")
-DATABASE = os.path.join(DATABASE_DIR, "database.db")
-SCHEMA_FILE = os.path.join(DATABASE_DIR, "schema.sql")
-
+# POSTGRESQL DATABASE CONNECTION
 
 def get_db_connection():
-    os.makedirs(DATABASE_DIR, exist_ok=True)
 
-    conn = sqlite3.connect(
-        DATABASE,
-        timeout=10
+    database_url = os.environ.get("DATABASE_URL")
+
+    if not database_url:
+
+        raise RuntimeError(
+            "DATABASE_URL environment variable is not configured."
+        )
+
+    conn = psycopg.connect(
+        database_url,
+        row_factory=dict_row
     )
-
-    conn.row_factory = sqlite3.Row
 
     return conn
 
 
-def init_db():
-    os.makedirs(DATABASE_DIR, exist_ok=True)
+# INITIALIZE DATABASE
 
-    conn = sqlite3.connect(
-        DATABASE,
-        timeout=10
+def init_db():
+
+    base_dir = os.path.dirname(
+        os.path.dirname(
+            os.path.abspath(__file__)
+        )
     )
 
-    try:
-        with open(
-            SCHEMA_FILE,
-            "r",
-            encoding="utf-8"
-        ) as file:
-            schema = file.read()
+    schema_file = os.path.join(
+        base_dir,
+        "database",
+        "schema.sql"
+    )
 
-        conn.executescript(schema)
+    if not os.path.exists(schema_file):
+
+        raise FileNotFoundError(
+            f"Database schema file not found: {schema_file}"
+        )
+
+    with open(
+        schema_file,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        schema = file.read()
+
+    conn = get_db_connection()
+
+    try:
+
+        conn.execute(schema)
+
         conn.commit()
 
+        print("PostgreSQL database initialized successfully.")
+
+    except Exception as e:
+
+        conn.rollback()
+
+        print(
+            "DATABASE INITIALIZATION ERROR:",
+            e
+        )
+
+        raise
+
     finally:
+
         conn.close()
