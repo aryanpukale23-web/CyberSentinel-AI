@@ -16,7 +16,86 @@
     >
 
     <style>
+        
+/* 
+   OFFICIAL CYBER HELP
+    */
 
+.official-help-card {
+    border-color: rgba(0, 200, 150, 0.28);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 200, 150, 0.06),
+            #121A17 55%
+        );
+}
+
+.official-help-content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.official-help-icon {
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(0, 200, 150, 0.08);
+    border: 1px solid rgba(0, 200, 150, 0.25);
+    font-size: 27px;
+}
+
+.official-help-text h4 {
+    margin: 0 0 8px;
+    color: #F3F7F5;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.official-help-text p {
+    margin: 0 0 15px;
+    color: #9AAEA5;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.official-warning {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: rgba(245, 185, 66, 0.06);
+    border: 1px solid rgba(245, 185, 66, 0.22);
+    color: #D8C28A;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.official-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+
+    .official-help-content {
+        flex-direction: column;
+    }
+
+    .official-actions {
+        flex-direction: column;
+    }
+
+    .official-actions a {
+        width: 100%;
+        text-align: center;
+    }
+}
         * {
             box-sizing: border-box;
         }
@@ -38,9 +117,9 @@
             max-width: 1100px;
         }
 
-        /* =========================
+        /* 
            NAVBAR
-        ========================= */
+         */
 
         .navbar {
             background: #0A0D0C !important;
@@ -60,9 +139,9 @@
             margin-right: 15px;
         }
 
-        /* =========================
+        /* 
            PAGE HEADER
-        ========================= */
+         */
 
         .page-header {
             padding: 40px 0 25px;
@@ -81,9 +160,9 @@
             font-size: 14px;
         }
 
-        /* =========================
+        /* 
            MAIN CARD
-        ========================= */
+         */
 
         .incident-card {
             background: #121A17;
@@ -104,9 +183,9 @@
             color: #00C896;
         }
 
-        /* =========================
+        /* 
            INCIDENT TITLE
-        ========================= */
+         */
 
         .incident-title {
             color: #F3F7F5;
@@ -128,9 +207,9 @@
             margin-bottom: 20px;
         }
 
-        /* =========================
+        /* 
            INFO BOX
-        ========================= */
+         */
 
         .info-box {
             background: #0E1411;
@@ -155,9 +234,9 @@
             word-break: break-word;
         }
 
-        /* =========================
+        /* 
            RISK BADGES
-        ========================= */
+         */
 
         .risk-badge {
             display: inline-block;
@@ -185,9 +264,9 @@
             border: 1px solid #236D57;
         }
 
-        /* =========================
+        /* 
            SCORE
-        ========================= */
+         */
 
         .score-card {
             text-align: center;
@@ -208,9 +287,9 @@
             font-size: 14px;
         }
 
-        /* =========================
+        /* 
            CONTENT
-        ========================= */
+         */
 
         .content-box {
             background: #0E1411;
@@ -231,9 +310,9 @@
             text-transform: uppercase;
         }
 
-        /* =========================
+        /* 
            EVIDENCE
-        ========================= */
+         */
 
         .evidence-box {
             background: #0E1411;
@@ -254,9 +333,9 @@
             margin-bottom: 10px;
         }
 
-        /* =========================
+        /* 
            BUTTONS
-        ========================= */
+         */
 
         .btn-emerald {
             display: inline-block;
@@ -307,9 +386,9 @@
             border-color: #00C896;
         }
 
-        /* =========================
+        /* 
            FOOTER
-        ========================= */
+         */
 
         footer {
             margin-top: 45px;
@@ -320,9 +399,9 @@
             font-size: 13px;
         }
 
-        /* =========================
+        /* 
            PRINT
-        ========================= */
+         */
 
         @media print {
 
@@ -353,9 +432,9 @@
             }
         }
 
-        /* =========================
+        /* 
            MOBILE
-        ========================= */
+         */
 
         @media (max-width: 700px) {
 
@@ -371,7 +450,152 @@
                 font-size: 40px;
             }
         }
+/* 
+   CYBERSENTINEL RADAR LOGO
+    */
 
+.cyber-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-text {
+    color: #00C896;
+    font-size: 22px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.radar-logo {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border: 2px solid #00C896;
+    border-radius: 50%;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 200, 150, 0.12) 0%,
+            rgba(0, 200, 150, 0.04) 45%,
+            transparent 70%
+        );
+    box-shadow:
+        0 0 10px rgba(0, 200, 150, 0.35);
+}
+
+/* Radar rings */
+
+.radar-ring {
+    position: absolute;
+    border: 1px solid rgba(0, 200, 150, 0.35);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ring-1 {
+    width: 13px;
+    height: 13px;
+}
+
+.ring-2 {
+    width: 25px;
+    height: 25px;
+}
+
+.ring-3 {
+    width: 36px;
+    height: 36px;
+}
+
+/* Radar cross lines */
+
+.radar-logo::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 200, 150, 0.25);
+    top: 50%;
+    left: 0;
+}
+
+.radar-logo::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background: rgba(0, 200, 150, 0.25);
+    top: 0;
+    left: 50%;
+}
+
+/* Moving radar sweep */
+
+.radar-sweep {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 0;
+    left: 50%;
+    transform-origin: bottom left;
+    background: linear-gradient(
+        45deg,
+        rgba(0, 200, 150, 0.45),
+        transparent 70%
+    );
+    clip-path: polygon(
+        0 100%,
+        100% 0,
+        100% 100%
+    );
+    animation: radarSweep 2s linear infinite;
+}
+
+/* Center point */
+
+.radar-center {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #00C896;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px #00C896;
+    z-index: 5;
+}
+
+/* Radar rotation */
+
+@keyframes radarSweep {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .radar-logo {
+        width: 36px;
+        height: 36px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+    }
+}
     </style>
 
 </head>
@@ -380,9 +604,9 @@
 <body>
 
 
-<!-- =========================
+<!-- 
      NAVBAR
-========================= -->
+ -->
 
 <nav class="navbar navbar-dark">
 
@@ -396,13 +620,19 @@
         >
 
             <!-- Brand -->
-            <a
-                href="{{ url_for('dashboard') }}"
-                class="navbar-brand"
-            >
-                🛡️ CyberSentinel AI
-            </a>
+<a href="{{ url_for('dashboard') }}" class="navbar-brand">
+    <div class="cyber-logo">
+        <div class="radar-logo">
+            <div class="radar-ring ring-1"></div>
+            <div class="radar-ring ring-2"></div>
+            <div class="radar-ring ring-3"></div>
+            <div class="radar-sweep"></div>
+            <div class="radar-center"></div>
+        </div>
 
+        <span class="logo-text">CyberSentinel AI</span>
+    </div>
+</a>
 
             <div
                 class="d-flex
@@ -434,9 +664,9 @@
 </nav>
 
 
-<!-- =========================
+<!-- 
      PAGE HEADER
-========================= -->
+ -->
 
 <section class="page-header">
 
@@ -455,16 +685,16 @@
 </section>
 
 
-<!-- =========================
+<!-- 
      MAIN CONTENT
-========================= -->
+ -->
 
 <div class="container pb-5">
 
 
-    <!-- =========================
+    <!-- 
          INCIDENT OVERVIEW
-    ========================= -->
+     -->
 
     <div class="incident-card">
 
@@ -583,9 +813,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- 
          RISK ANALYSIS
-    ========================= -->
+     -->
 
     <div class="incident-card">
 
@@ -646,9 +876,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- 
          INCIDENT DESCRIPTION
-    ========================= -->
+     -->
 
     <div class="incident-card">
 
@@ -669,9 +899,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- 
          ANALYSIS REASON
-    ========================= -->
+     -->
 
     <div class="incident-card">
 
@@ -692,15 +922,15 @@
     </div>
 
 
-    <!-- =========================
+    <!-- 
          RESPONSE RECOMMENDATION
-    ========================= -->
+     -->
 
     <div class="incident-card">
 
         <div class="card-title">
 
-            <span>🛡️</span>
+            <span></span>
             Response Recommendation
 
         </div>
@@ -715,9 +945,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- 
          PREVENTION TIPS
-    ========================= -->
+     -->
 
     <div class="incident-card">
 
@@ -737,10 +967,73 @@
 
     </div>
 
+<!-- 
+     OFFICIAL CYBER HELP
+ -->
 
-    <!-- =========================
+<div class="incident-card official-help-card">
+
+    <div class="card-title">
+
+        <span>🛡️</span>
+        Need Official Cyber Assistance?
+
+    </div>
+
+    <div class="official-help-content">
+
+        <div class="official-help-icon">
+            🏛️
+        </div>
+
+        <div class="official-help-text">
+
+            <h4>
+                Report this incident to official cyber authorities
+            </h4>
+
+            <p>
+                If this incident involves financial fraud, online
+                harassment, account compromise, data theft, phishing,
+                ransomware or any other serious cybercrime, you should
+                report it to the official cybercrime authorities.
+            </p>
+
+            <div class="official-warning">
+                ⚠️ CyberSentinel AI provides analysis and guidance.
+                It does not replace official law-enforcement or
+                cybercrime reporting services.
+            </div>
+
+<div class="official-actions">
+
+    <!-- CALL 1930 -->
+    <a
+        href="tel:1930"
+        class="btn-emerald"
+    >
+        📞 Call Cyber Crime Helpline — 1930
+    </a>
+
+    <!-- OFFICIAL CYBERCRIME PORTAL -->
+    <a
+        href="https://cybercrime.gov.in/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-outline-emerald"
+    >
+        🌐 Report Cyber Crime
+    </a>
+
+</div>
+        </div>
+
+    </div>
+
+</div>
+    <!-- 
          EVIDENCE
-    ========================= -->
+     -->
 
     <div class="incident-card">
 
@@ -807,9 +1100,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- 
          ACTION BUTTONS
-    ========================= -->
+     -->
 
     <div class="incident-card action-buttons">
 
@@ -862,14 +1155,14 @@
 </div>
 
 
-<!-- =========================
+<!-- 
      FOOTER
-========================= -->
+ -->
 
 <footer>
 
     <p class="mb-1">
-        © 2026 🛡️ CyberSentinel AI
+        © 2026  CyberSentinel AI
     </p>
 
     <p class="mb-1">
