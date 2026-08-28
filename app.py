@@ -117,6 +117,365 @@ def validate_password(password):
 
     return errors
 
+# CYBER INCIDENT VALIDATION
+# Selected incident type must match the details
+
+def validate_cyber_incident(incident_type, title, description):
+
+    incident_type = (incident_type or "").strip().lower()
+    title = (title or "").strip().lower()
+    description = (description or "").strip().lower()
+
+    text = f"{title} {description}"
+
+    # Keywords for each incident type
+    incident_keywords = {
+
+"phishing": [
+    "phishing",
+    "phishing email",
+    "phishing link",
+    "phishing website",
+    "spear phishing",
+    "whaling",
+    "smishing",
+    "vishing",
+    "fake email",
+    "fake login",
+    "fake website",
+    "malicious link",
+    "suspicious link",
+    "credential phishing"
+],
+
+"hacking": [
+    "hack",
+    "hacked",
+    "hacking",
+    "hacker",
+    "hacking attempt",
+    "hacking attack",
+    "unauthorized access",
+    "unauthorised access",
+    "unauthorized login",
+    "unauthorised login",
+    "account hacked",
+    "account compromised",
+    "account takeover",
+    "system hacked",
+    "server hacked",
+    "computer hacked",
+    "device hacked",
+    "website hacked"
+],
+
+"malware": [
+    "malware",
+    "malware attack",
+    "malware infection",
+    "malicious software",
+    "virus",
+    "computer virus",
+    "trojan",
+    "trojan horse",
+    "worm",
+    "spyware",
+    "adware",
+    "rootkit",
+    "keylogger",
+    "backdoor",
+    "botnet",
+    "infected computer",
+    "infected device",
+    "malicious program",
+    "malicious application"
+],
+
+"ransomware": [
+    "ransomware",
+    "ransomware attack",
+    "ransomware infection",
+    "encrypted files",
+    "files encrypted",
+    "ransom demand",
+    "ransom payment",
+    "ransomware threat"
+],
+
+"data_breach": [
+    "data breach",
+    "data leak",
+    "data leakage",
+    "data theft",
+    "data stolen",
+    "database breach",
+    "database hacked",
+    "information stolen",
+    "personal data stolen",
+    "sensitive data stolen",
+    "confidential data stolen",
+    "credential leak",
+    "data exposure",
+    "information leak",
+    "database leak"
+],
+
+"credential_attack": [
+    "password stolen",
+    "password compromised",
+    "password leaked",
+    "credential theft",
+    "stolen credentials",
+    "compromised credentials",
+    "credential attack",
+    "brute force",
+    "brute force attack",
+    "credential stuffing",
+    "password spraying",
+    "password attack",
+    "login attack",
+    "account takeover"
+],
+
+"web_attack": [
+    "sql injection",
+    "sqli",
+    "cross site scripting",
+    "cross-site scripting",
+    "xss",
+    "csrf",
+    "command injection",
+    "code injection",
+    "path traversal",
+    "directory traversal",
+    "remote code execution",
+    "rce",
+    "ssrf",
+    "web attack",
+    "web vulnerability",
+    "website vulnerability",
+    "website compromise",
+    "website compromised",
+    "web application attack"
+],
+
+"network_attack": [
+    "network attack",
+    "network intrusion",
+    "network breach",
+    "network compromise",
+    "port scanning",
+    "port scan",
+    "network scanning",
+    "dns spoofing",
+    "arp spoofing",
+    "ip spoofing",
+    "man in the middle",
+    "man-in-the-middle",
+    "mitm attack",
+    "network sniffing",
+    "packet sniffing",
+    "packet interception"
+],
+
+"ddos": [
+    "dos attack",
+    "denial of service",
+    "ddos",
+    "ddos attack",
+    "distributed denial of service",
+    "server flooding",
+    "traffic flooding",
+    "service disruption",
+    "network flooding"
+],
+
+"spoofing": [
+    "spoofing",
+    "email spoofing",
+    "website spoofing",
+    "identity spoofing",
+    "ip spoofing",
+    "dns spoofing",
+    "arp spoofing",
+    "caller id spoofing"
+],
+
+"cyber_fraud": [
+    "cyber fraud",
+    "cybercrime",
+    "cyber crime",
+    "online fraud",
+    "online scam",
+    "cyber scam",
+    "internet scam",
+    "financial fraud",
+    "payment fraud",
+    "banking fraud",
+    "credit card fraud",
+    "online theft",
+    "digital fraud",
+    "internet fraud"
+],
+
+"cloud_attack": [
+    "cloud attack",
+    "cloud security",
+    "cloud breach",
+    "cloud data breach",
+    "cloud account compromised",
+    "cloud account hacked",
+    "cloud vulnerability",
+    "cloud security vulnerability",
+    "cloud misconfiguration",
+    "cloud data exposure",
+    "cloud data leak",
+    "cloud storage exposure",
+    "storage bucket exposure",
+    "cloud intrusion",
+    "cloud compromise",
+    "cloud security incident",
+    "cloud threat"
+],
+
+"mobile_attack": [
+    "mobile malware",
+    "mobile attack",
+    "mobile phishing",
+    "android malware",
+    "android attack",
+    "android security",
+    "malicious app",
+    "fake app",
+    "mobile security",
+    "mobile vulnerability",
+    "sim swapping",
+    "sim swap",
+    "mobile data theft"
+],
+
+"vulnerability": [
+    "vulnerability",
+    "security vulnerability",
+    "critical vulnerability",
+    "software vulnerability",
+    "system vulnerability",
+    "network vulnerability",
+    "web vulnerability",
+    "zero day",
+    "zero-day",
+    "security exploit",
+    "exploit",
+    "exploited vulnerability",
+    "unpatched vulnerability",
+    "missing security patch",
+    "security flaw",
+    "software flaw",
+    "system flaw"
+],
+
+"insider_threat": [
+    "insider threat",
+    "insider attack",
+    "insider access",
+    "malicious insider",
+    "employee security breach",
+    "employee data theft",
+    "internal threat",
+    "internal attack"
+],
+
+"digital_forensics": [
+    "digital evidence",
+    "forensic evidence",
+    "digital forensic",
+    "forensic investigation",
+    "security investigation",
+    "malicious file",
+    "suspicious file",
+    "malware sample",
+    "security log",
+    "incident log",
+    "attack log"
+],
+
+"email_attack": [
+    "email attack",
+    "malicious email",
+    "email compromise",
+    "email account hacked",
+    "email account compromised",
+    "business email compromise",
+    "email scam",
+    "email spoofing",
+    "suspicious email",
+    "phishing email",
+    "malicious attachment",
+    "suspicious attachment"
+],
+
+"other": [
+    "other",
+    "social engineering",
+    "social engineering attack",
+    "social engineering attempt",
+    "suspicious activity",
+    "unusual activity",
+    "security incident",
+    "cybersecurity activity",
+    "cyber security activity",
+    "cyber incident",
+    "cyber threat",
+    "security threat",
+    "suspicious behavior",
+    "suspicious behaviour",
+    "potential security threat",
+    "malicious activity",
+    "security concern",
+    "security issue",
+    "security problem",
+    "unknown activity",
+    "unusual behavior",
+    "unusual behaviour"
+]
+
+    }
+
+    # 
+    # FIND MATCHING INCIDENT TYPE
+    # 
+
+    selected_keywords = None
+
+    for incident_name, keywords in incident_keywords.items():
+
+        if incident_name in incident_type:
+
+            selected_keywords = keywords
+            break
+
+    # 
+    # IF INCIDENT TYPE IS NOT FOUND
+    # 
+
+    if selected_keywords is None:
+
+        return False
+
+    # 
+    # CHECK TITLE + DESCRIPTION
+    # 
+
+    for keyword in selected_keywords:
+
+        if keyword in text:
+            return True
+
+    # 
+    # WRONG DETAILS FOR SELECTED TYPE
+    # 
+
+    return False
 
 # HOME
 
@@ -546,6 +905,31 @@ def report_incident():
             description=description
         )
 
+    # CYBER INCIDENT VALIDATION
+
+    if not validate_cyber_incident(
+        incident_type,
+        title,
+        description
+    ):
+
+        return render_template(
+            "report.html",
+
+            error=(
+                "Please enter a valid cyber security incident. "
+                "For example: phishing, hacking, malware, "
+                "ransomware, data breach, unauthorized access, "
+                "or another genuine security incident."
+            ),
+
+            incident_type=incident_type,
+
+            title=title,
+
+            description=description
+        )
+
     # EVIDENCE
 
     evidence_path = None
@@ -692,12 +1076,12 @@ def report_incident():
 
     status = "Open"
 
+
     # SAVE INCIDENT
 
     conn = get_db_connection()
 
     try:
-
         cursor = conn.execute(
             """
             INSERT INTO incidents
@@ -734,16 +1118,13 @@ def report_incident():
         )
 
         incident_id = cursor.lastrowid
-
         conn.commit()
 
-    except Exception:
+    except Exception as e:
+
+        print("INCIDENT SAVE ERROR:", e)
 
         conn.rollback()
-
-        conn.close()
-
-        # DELETE FILE IF DATABASE FAILED
 
         if evidence_path:
 
@@ -752,38 +1133,19 @@ def report_incident():
                 os.path.basename(evidence_path)
             )
 
-            if os.path.exists(
-                uploaded_file_path
-            ):
-
-                os.remove(
-                    uploaded_file_path
-                )
+            if os.path.exists(uploaded_file_path):
+                os.remove(uploaded_file_path)
 
         return render_template(
             "report.html",
-
-            error=(
-                "Unable to save the incident. "
-                "Please try again."
-            ),
-
+            error=f"Database Error: {e}",
             incident_type=incident_type,
-
             title=title,
-
             description=description
         )
 
     finally:
-
-        try:
-
-            conn.close()
-
-        except Exception:
-
-            pass
+        conn.close()
 
     # INCIDENT DETAILS
 
@@ -793,8 +1155,6 @@ def report_incident():
             incident_id=incident_id
         )
     )
-
-
 # INCIDENT DETAILS
 
 @app.route(
@@ -1140,6 +1500,51 @@ def download_incident_pdf(incident_id):
         else "No evidence attached."
     )
 
+
+    # OFFICIAL CYBER CRIME INFORMATION
+
+    story.append(
+        Spacer(1, 15)
+    )
+
+    story.append(
+        Paragraph(
+            "Official Cyber Crime Assistance",
+            heading_style
+        )
+    )
+
+    story.append(
+        Spacer(1, 6)
+    )
+
+    official_text = """
+    Cyber Crime Helpline: 1930<br/>
+    Official Cyber Crime Reporting Portal: cybercrime.gov.in<br/><br/>
+
+    If this incident involves cyber fraud, online scam, phishing,
+    account compromise, financial fraud, data theft or any other
+    cybercrime, report it to the official cybercrime authorities.<br/><br/>
+
+    Important: CyberSentinel AI provides cybersecurity analysis
+    and guidance. It does not replace official law-enforcement
+    or cybercrime reporting services.
+    """
+
+    story.append(
+        Paragraph(
+            official_text,
+            normal_style
+        )
+    )
+
+    story.append(
+        Spacer(1, 15)
+    )
+
+
+
+
     # FOOTER TEXT
 
     story.append(
@@ -1208,4 +1613,3 @@ if __name__ == "__main__":
         host="127.0.0.1",
         port=5000
     )
-    
