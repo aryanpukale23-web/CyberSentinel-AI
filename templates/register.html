@@ -3,6 +3,10 @@
 {% block title %}Register - CyberSentinel AI{% endblock %}
 
 {% block content %}
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
 <style>
 
@@ -251,7 +255,7 @@
                     <div class="text-center mb-4">
 
                         <div class="register-logo">
-                            🛡️ CyberSentinel AI
+                             CyberSentinel AI
                         </div>
 
                         <div class="register-subtitle">
@@ -318,10 +322,8 @@
                                 id="full_name"
                                 name="full_name"
                                 class="form-control register-input"
-                                placeholder="Enter your full name"
+                                placeholder="Enter your name"
                                 required
-                                pattern="[A-Za-z]+( [A-Za-z]+)*"
-                                title="Name must contain letters and spaces only."
                                 autocomplete="name"
                             >
 
@@ -374,15 +376,14 @@
                                 >
 
                                 <button
-                                    type="button"
-                                    class="password-toggle"
-                                    id="togglePassword"
-                                    onclick="togglePasswordVisibility()"
-                                    aria-label="Show password"
+                                     type="button"
+                                     class="password-toggle"
+                                     id="togglePassword"
+                                     onclick="togglePasswordVisibility()"
+                                     aria-label="Show password"
                                 >
-                                    👁️
+                                     <i class="fa-solid fa-eye-slash"></i>
                                 </button>
-
                             </div>
 
                             <!-- Password Requirements -->
@@ -438,7 +439,7 @@
                             type="submit"
                             class="btn register-btn"
                         >
-                            🛡️ Create Account
+                             Create Account
                         </button>
 
                     </form>
@@ -500,7 +501,8 @@ function togglePasswordVisibility() {
 
         passwordInput.type = "text";
 
-        toggleButton.textContent = "🙈";
+        toggleButton.innerHTML =
+            '<i class="fa-solid fa-eye"></i>';
 
         toggleButton.setAttribute(
             "aria-label",
@@ -511,7 +513,8 @@ function togglePasswordVisibility() {
 
         passwordInput.type = "password";
 
-        toggleButton.textContent = "👁️";
+        toggleButton.innerHTML =
+            '<i class="fa-solid fa-eye-slash"></i>';
 
         toggleButton.setAttribute(
             "aria-label",
