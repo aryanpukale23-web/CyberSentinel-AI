@@ -3,18 +3,10 @@
 
 <head>
 
-    <!-- =========================================================
-         BASIC PAGE CONFIGURATION
-    ========================================================== -->
-
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Dynamic page title -->
     <title>
         {% block title %}
             CyberSentinel AI
@@ -22,9 +14,7 @@
     </title>
 
 
-    <!-- =========================================================
-         BOOTSTRAP CSS
-    ========================================================== -->
+    <!-- Bootstrap -->
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -32,9 +22,15 @@
     >
 
 
-    <!-- =========================================================
-         GOOGLE FONT
-    ========================================================== -->
+    <!-- Bootstrap Icons -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- Google Font -->
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -42,74 +38,50 @@
     >
 
 
-    <!-- =========================================================
-         GLOBAL CYBERSENTINEL AI STYLING
-    ========================================================== -->
-
     <style>
 
-        /* =====================================================
+        /* 
            COLOR VARIABLES
-        ====================================================== */
+         */
 
         :root {
 
             --background: #0A0D0C;
-
             --navbar: #101614;
-
             --card: #121A17;
-
             --card-hover: #16201C;
 
             --primary-emerald: #00C896;
-
             --secondary-lime: #A3E635;
-
             --gold: #F5B942;
 
             --text-primary: #F3F7F5;
-
             --text-secondary: #9AAEA5;
-
             --muted: #63746D;
 
             --border: #24332D;
-
             --border-hover: #355047;
 
             --danger: #FF5C5C;
-
             --warning: #F5B942;
-
             --success: #22C55E;
 
         }
 
 
-        /* =====================================================
-           GLOBAL BOX SIZING
-        ====================================================== */
+        /* 
+           GLOBAL
+         */
 
         * {
             box-sizing: border-box;
         }
 
 
-        /* =====================================================
-           HTML
-        ====================================================== */
-
         html {
-
             scroll-behavior: smooth;
-
         }
 
-
-        /* =====================================================
-           BODY
-        ====================================================== */
 
         body {
 
@@ -118,6 +90,7 @@
             min-height: 100vh;
 
             background:
+
                 radial-gradient(
                     circle at 85% 10%,
                     rgba(0, 200, 150, 0.055),
@@ -145,20 +118,14 @@
         }
 
 
-        /* =====================================================
-           MAIN CONTAINER
-        ====================================================== */
-
         .container {
-
             max-width: 1150px;
-
         }
 
 
-        /* =====================================================
+        /* 
            NAVBAR
-        ====================================================== */
+         */
 
         .navbar {
 
@@ -172,12 +139,14 @@
 
             backdrop-filter: blur(10px);
 
+            position: relative;
+
         }
 
 
-        /* =====================================================
-           NAVBAR BRAND
-        ====================================================== */
+        /* 
+           BRAND
+         */
 
         .navbar-brand {
 
@@ -195,8 +164,6 @@
         }
 
 
-        /* Brand shield emoji */
-
         .brand-icon {
 
             margin-right: 7px;
@@ -206,19 +173,191 @@
         }
 
 
-        /* Brand highlighted text */
-
         .brand-highlight {
 
             color:
                 var(--primary-emerald);
 
         }
+        /* 
+   LIVE RADAR LOGO
+ */
+
+.cyber-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radar-logo {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--primary-emerald);
+    border-radius: 50%;
+    overflow: hidden;
+    background: rgba(0, 200, 150, 0.04);
+    box-shadow:
+        0 0 8px rgba(0, 200, 150, 0.45),
+        0 0 18px rgba(0, 200, 150, 0.15);
+}
+
+/* Radar rings */
+
+.radar-ring {
+    position: absolute;
+    border: 1px solid rgba(0, 200, 150, 0.45);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ring-1 {
+    width: 12px;
+    height: 12px;
+}
+
+.ring-2 {
+    width: 24px;
+    height: 24px;
+}
+
+.ring-3 {
+    width: 36px;
+    height: 36px;
+}
+
+/* Radar cross lines */
+
+.radar-logo::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 200, 150, 0.35);
+    top: 50%;
+    left: 0;
+}
+
+.radar-logo::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background: rgba(0, 200, 150, 0.35);
+    left: 50%;
+    top: 0;
+}
+
+/* Rotating radar sweep */
+
+.radar-sweep {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0% 0%;
+    background: linear-gradient(
+        45deg,
+        rgba(0, 200, 150, 0.65),
+        rgba(0, 200, 150, 0)
+    );
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        0 100%
+    );
+    animation: radarRotate 2.2s linear infinite;
+}
+
+/* Radar center */
+
+.radar-center {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--secondary-lime);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    box-shadow:
+        0 0 6px var(--secondary-lime),
+        0 0 12px var(--primary-emerald);
+}
+
+/* Rotation */
+
+@keyframes radarRotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+/* Logo text */
+
+.logo-text {
+    color: var(--text-primary);
+    font-size: 35px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    line-height: 1;
+    white-space: nowrap;
+}
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .radar-logo {
+        width: 32px;
+        height: 32px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+    }
+
+}
 
 
-        /* =====================================================
-           NAVIGATION LINKS
-        ====================================================== */
+        /* 
+           CENTER BRAND
+         */
+
+        .auth-brand {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            margin: 0;
+
+            font-size: 35px;
+
+            white-space: nowrap;
+
+            z-index: 10;
+
+        }
+
+
+        /* 
+           NAVIGATION
+         */
 
         .navbar-nav .nav-link {
 
@@ -241,8 +380,6 @@
         }
 
 
-        /* Navigation hover */
-
         .navbar-nav .nav-link:hover {
 
             color:
@@ -254,8 +391,6 @@
         }
 
 
-        /* Active navigation */
-
         .navbar-nav .nav-link.active {
 
             color:
@@ -264,51 +399,9 @@
         }
 
 
-        /* =====================================================
-           SYSTEM STATUS
-        ====================================================== */
-
-        .system-status {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 7px;
-
-            margin-right: 15px;
-
-            color:
-                var(--text-secondary);
-
-            font-size: 11px;
-
-        }
-
-
-        /* Online status dot */
-
-        .status-dot {
-
-            width: 7px;
-
-            height: 7px;
-
-            border-radius: 50%;
-
-            background:
-                var(--primary-emerald);
-
-            box-shadow:
-                0 0 9px
-                rgba(0, 200, 150, 0.7);
-
-        }
-
-
-        /* =====================================================
-           USER NAME
-        ====================================================== */
+        /* 
+           USER
+         */
 
         .navbar-user {
 
@@ -328,50 +421,9 @@
         }
 
 
-        /* =====================================================
-           DASHBOARD BUTTON
-        ====================================================== */
-
-        .dashboard-btn {
-
-            color:
-                var(--text-primary);
-
-            border:
-                1px solid var(--border-hover);
-
-            background:
-                transparent;
-
-            border-radius: 7px;
-
-            padding:
-                7px 14px;
-
-            font-size: 12px;
-
-            text-decoration: none;
-
-        }
-
-
-        .dashboard-btn:hover {
-
-            color:
-                var(--text-primary);
-
-            background:
-                var(--card);
-
-            border-color:
-                var(--primary-emerald);
-
-        }
-
-
-        /* =====================================================
+        /* 
            LOGOUT BUTTON
-        ====================================================== */
+         */
 
         .logout-btn {
 
@@ -409,9 +461,9 @@
         }
 
 
-        /* =====================================================
+        /* 
            FLASH MESSAGES
-        ====================================================== */
+         */
 
         .flash-container {
 
@@ -437,8 +489,6 @@
         }
 
 
-        /* Success flash */
-
         .flash-success {
 
             color: #7EF0C5;
@@ -451,8 +501,6 @@
 
         }
 
-
-        /* Error flash */
 
         .flash-danger {
 
@@ -467,8 +515,6 @@
         }
 
 
-        /* Warning flash */
-
         .flash-warning {
 
             color: #FFD978;
@@ -481,8 +527,6 @@
 
         }
 
-
-        /* Info flash */
 
         .flash-info {
 
@@ -497,9 +541,9 @@
         }
 
 
-        /* =====================================================
-           MAIN CONTENT
-        ====================================================== */
+        /* 
+           MAIN
+         */
 
         main {
 
@@ -509,9 +553,9 @@
         }
 
 
-        /* =====================================================
+        /* 
            GENERAL CARD
-        ====================================================== */
+         */
 
         .cyber-card {
 
@@ -539,9 +583,9 @@
         }
 
 
-        /* =====================================================
-           PRIMARY EMERALD BUTTON
-        ====================================================== */
+        /* 
+           PRIMARY BUTTON
+         */
 
         .btn-cyber {
 
@@ -595,9 +639,9 @@
         }
 
 
-        /* =====================================================
+        /* 
            OUTLINE BUTTON
-        ====================================================== */
+         */
 
         .btn-cyber-outline {
 
@@ -642,9 +686,9 @@
         }
 
 
-        /* =====================================================
+        /* 
            FORM CONTROLS
-        ====================================================== */
+         */
 
         .form-control,
         .form-select {
@@ -694,9 +738,9 @@
         }
 
 
-        /* =====================================================
+        /* 
            FOOTER
-        ====================================================== */
+         */
 
         footer {
 
@@ -721,56 +765,53 @@
         }
 
 
-        footer strong {
-
-            color:
-                var(--text-secondary);
-
-        }
-
-
-        /* =====================================================
-           RESPONSIVE NAVBAR
-        ====================================================== */
+footer strong {
+    color: var(--text-primary);
+    font-weight: 800;
+}
+        /* 
+           RESPONSIVE
+         */
 
         @media (max-width: 768px) {
 
-            .system-status {
-
-                display: none;
-
-            }
-
-            .navbar-user {
-
-                display: none;
-
-            }
-
             .navbar-brand {
 
-                font-size: 18px;
+                font-size:
+                    18px;
+
+            }
+
+            .auth-brand {
+
+                font-size:
+                    27px;
 
             }
 
         }
 
-
-        /* =====================================================
-           MOBILE
-        ====================================================== */
 
         @media (max-width: 576px) {
 
             .container {
 
-                width: 100%;
+                width:
+                    100%;
 
             }
 
             .navbar {
 
-                min-height: 62px;
+                min-height:
+                    62px;
+
+            }
+
+            .auth-brand {
+
+                font-size:
+                    22px;
 
             }
 
@@ -779,13 +820,7 @@
     </style>
 
 
-    <!-- =========================================================
-         EXTRA PAGE CSS
-         Individual pages can add their own CSS here.
-    ========================================================== -->
-
     {% block extra_css %}
-
     {% endblock %}
 
 </head>
@@ -794,154 +829,83 @@
 <body>
 
 
-<!-- =========================================================
+<!-- 
      NAVIGATION BAR
-========================================================== -->
+ -->
 
 <nav class="navbar navbar-expand-lg navbar-dark">
 
-    <div class="container">
+    <div class="container position-relative">
 
 
-        <!-- =====================================================
-             WEBSITE BRAND
-        ====================================================== -->
+        <!-- CENTER BRAND -->
 
         <a
-            class="navbar-brand"
+            class="navbar-brand auth-brand"
             href="{{ url_for('dashboard') }}"
         >
 
-            <span class="brand-icon">
-                🛡️
-            </span>
+<div class="cyber-logo">
+    <div class="radar-logo">
+        <div class="radar-ring ring-1"></div>
+        <div class="radar-ring ring-2"></div>
+        <div class="radar-ring ring-3"></div>
 
-            CyberSentinel
-            <span class="brand-highlight">
-                AI
-            </span>
+        <div class="radar-sweep"></div>
+        <div class="radar-center"></div>
+    </div>
 
+   <span class="logo-text">
+    <span class="brand-highlight">CyberSentinel AI</span>
+</span>
+</div>
         </a>
 
 
-        <!-- =====================================================
-             MOBILE NAVBAR TOGGLER
-        ====================================================== -->
-
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar"
-            aria-controls="mainNavbar"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
-
-            <span class="navbar-toggler-icon"></span>
-
-        </button>
-
-
-        <!-- =====================================================
-             NAVIGATION CONTENT
-        ====================================================== -->
+        <!-- NAVIGATION -->
 
         <div
             class="collapse navbar-collapse"
             id="mainNavbar"
         >
 
-            <!-- Navigation links -->
-
             <ul class="navbar-nav ms-auto align-items-lg-center">
 
 
-                <!-- Dashboard -->
-
-                <li class="nav-item">
-
-                    <a
-                        class="nav-link"
-                        href="{{ url_for('dashboard') }}"
-                    >
-
-                        🏠 Dashboard
-
-                    </a>
-
-                </li>
 
 
-                <!-- Report Incident -->
-
-                <li class="nav-item">
-
-                    <a
-                        class="nav-link"
-                        href="{{ url_for('report_incident') }}"
-                    >
-
-                        🚨 Report Incident
-
-                    </a>
-
-                </li>
 
 
-                <!-- System status -->
-
-                <li class="nav-item ms-lg-2">
-
-                    <div class="system-status">
-
-                        <span class="status-dot"></span>
-
-                        Security System Online
-
-                    </div>
-
-                </li>
-
-
-                <!-- =================================================
-                     USER INFORMATION
-                ================================================== -->
-
-                {% if session.get("user_name") %}
-
-                <li class="nav-item">
-
-                    <span class="navbar-user">
-
-                        👤
-                        {{ session["user_name"]|title }}
-
-                    </span>
-
-                </li>
-
-                {% endif %}
-
-
-                <!-- =================================================
-                     LOGOUT
-                ================================================== -->
+                <!-- USER -->
 
                 {% if session.get("user_id") %}
 
-                <li class="nav-item">
+                    <li class="nav-item">
 
-                    <a
-                        href="{{ url_for('logout') }}"
-                        class="btn logout-btn"
-                    >
+                        <span class="navbar-user">
 
-                        🚪 Logout
+                            👤
+                            {{ session["user_name"]|title }}
 
-                    </a>
+                        </span>
 
-                </li>
+                    </li>
+
+
+                    <!-- LOGOUT -->
+
+                    <li class="nav-item">
+
+                        <a
+                            href="{{ url_for('logout') }}"
+                            class="btn logout-btn"
+                        >
+
+                            🚪 Logout
+
+                        </a>
+
+                    </li>
 
                 {% endif %}
 
@@ -955,9 +919,9 @@
 </nav>
 
 
-<!-- =========================================================
+<!-- 
      FLASH MESSAGES
-========================================================== -->
+ -->
 
 {% with messages = get_flashed_messages(with_categories=true) %}
 
@@ -971,16 +935,22 @@
                     class="
                         alert
                         flash-message
+
                         {% if category == 'success' %}
                             flash-success
+
                         {% elif category == 'danger' %}
                             flash-danger
+
                         {% elif category == 'warning' %}
                             flash-warning
+
                         {% else %}
                             flash-info
+
                         {% endif %}
                     "
+
                     role="alert"
                 >
 
@@ -1015,61 +985,54 @@
 {% endwith %}
 
 
-<!-- =========================================================
-     MAIN PAGE CONTENT
-
-     Individual HTML pages will insert their content
-     inside this block.
-========================================================== -->
+<!-- 
+     MAIN CONTENT
+ -->
 
 <main>
 
     {% block content %}
-
     {% endblock %}
 
 </main>
 
 
-<!-- =========================================================
+<!-- 
      FOOTER
-========================================================== -->
+ -->
 
 <footer>
 
     <p class="mb-1">
-        © 2026 🛡️ CyberSentinel AI
+
+        © 2026  CyberSentinel AI
+
     </p>
 
-    <p class="mb-1">
-        Developed by <strong>Aryan Pukale</strong>
-    </p>
+
+<p class="mb-1" style="font-weight: 800 !important;">
+    Developed by Aryan Pukale
+</p>
 
     <p class="mb-0">
+
         Intelligent Cyber Incident Response System
+
     </p>
 
 </footer>
 
-</footer>
 
-
-<!-- =========================================================
+<!-- 
      BOOTSTRAP JAVASCRIPT
-========================================================== -->
+ -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 ></script>
 
 
-<!-- =========================================================
-     EXTRA PAGE JAVASCRIPT
-     Individual pages can add their own JavaScript here.
-========================================================== -->
-
 {% block extra_js %}
-
 {% endblock %}
 
 
