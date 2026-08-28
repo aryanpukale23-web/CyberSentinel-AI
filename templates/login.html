@@ -3,6 +3,10 @@
 {% block title %}Login - CyberSentinel AI{% endblock %}
 
 {% block content %}
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
 <style>
 
@@ -182,7 +186,7 @@
                     <div class="text-center mb-4">
 
                         <div class="login-logo">
-                            🛡️ CyberSentinel AI
+                            CyberSentinel AI
                         </div>
 
                         <div class="login-subtitle mt-2">
@@ -271,12 +275,12 @@
                                 >
 
                                 <button
-                                    type="button"
-                                    class="password-toggle"
-                                    onclick="togglePassword()"
-                                    aria-label="Show or hide password"
+                                     type="button"
+                                     class="password-toggle"
+                                     onclick="togglePassword()"
+                                     aria-label="Show or hide password"
                                 >
-                                    👁
+                                     <i class="fa-solid fa-eye-slash"></i>
                                 </button>
 
                             </div>
@@ -289,7 +293,7 @@
                             type="submit"
                             class="btn login-btn w-100"
                         >
-                            🛡️ Login
+                             Login
                         </button>
 
                     </form>
@@ -345,17 +349,19 @@ function togglePassword() {
 
     if (passwordInput.type === "password") {
 
-        passwordInput.type = "text";
+    passwordInput.type = "text";
 
-        toggleButton.textContent = "🙈";
+    toggleButton.innerHTML =
+        '<i class="fa-solid fa-eye"></i>';
 
-    } else {
+} else {
 
-        passwordInput.type = "password";
+    passwordInput.type = "password";
 
-        toggleButton.textContent = "👁";
+    toggleButton.innerHTML =
+        '<i class="fa-solid fa-eye-slash"></i>';
 
-    }
+}
 
 }
 
