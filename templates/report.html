@@ -66,9 +66,9 @@
             max-width: 1050px;
         }
 
-        /* =========================
+        /* 
            NAVBAR
-        ========================= */
+         */
 
         .navbar {
             min-height: 70px;
@@ -133,9 +133,9 @@
             border-color: var(--danger);
         }
 
-        /* =========================
+        /* 
            PAGE HEADER
-        ========================= */
+         */
 
         .page-header {
             padding: 55px 20px 35px;
@@ -192,9 +192,9 @@
             line-height: 1.7;
         }
 
-        /* =========================
+        /* 
            INCIDENT CARD
-        ========================= */
+         */
 
         .incident-card {
             overflow: hidden;
@@ -264,9 +264,9 @@
             padding: 32px;
         }
 
-        /* =========================
+        /* 
            INFORMATION BOX
-        ========================= */
+         */
 
         .info-box {
             display: flex;
@@ -293,9 +293,9 @@
             color: var(--primary-emerald);
         }
 
-        /* =========================
+        /* 
            ERROR BOX
-        ========================= */
+         */
 
         .error-box {
             display: flex;
@@ -313,9 +313,9 @@
             font-size: 13px;
         }
 
-        /* =========================
+        /* 
            FORM SECTION
-        ========================= */
+         */
 
         .form-section {
             margin-bottom: 30px;
@@ -368,9 +368,9 @@
             color: #ef777f;
         }
 
-        /* =========================
+        /* 
            FORM CONTROLS
-        ========================= */
+         */
 
         .form-control,
         .form-select,
@@ -434,9 +434,9 @@
             font-size: 11px;
         }
 
-        /* =========================
+        /* 
            EVIDENCE
-        ========================= */
+         */
 
         .evidence-box {
             padding: 22px;
@@ -579,9 +579,9 @@
             color: var(--primary-emerald);
         }
 
-        /* =========================
+        /* 
            ANALYSIS PREVIEW
-        ========================= */
+         */
 
         .analysis-preview {
             margin-top: 25px;
@@ -632,9 +632,9 @@
             font-size: 10px;
         }
 
-        /* =========================
+        /* 
            FORM ACTIONS
-        ========================= */
+         */
 
         .form-actions {
             display: flex;
@@ -710,9 +710,9 @@
             color: var(--primary-emerald);
         }
 
-        /* =========================
+        /* 
            FOOTER
-        ========================= */
+         */
 
         footer {
             margin-top: 60px;
@@ -730,9 +730,9 @@
             color: var(--text-secondary);
         }
 
-        /* =========================
+        /* 
            RESPONSIVE
-        ========================= */
+         */
 
         @media (max-width: 768px) {
 
@@ -801,6 +801,105 @@
                 padding: 16px;
             }
         }
+/* LIVE RADAR LOGO */
+
+.cyber-dashboard-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    color: #00C896 !important;
+    text-decoration: none !important;
+}
+
+.radar-logo-dashboard {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+
+    border: 2px solid #00C896;
+    border-radius: 50%;
+
+    background: rgba(0, 200, 150, 0.08);
+
+    box-shadow:
+        0 0 10px rgba(0, 200, 150, 0.4);
+
+    overflow: hidden;
+}
+
+.radar-logo-dashboard::before {
+    content: "";
+
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border: 1px solid rgba(0, 200, 150, 0.5);
+
+    border-radius: 50%;
+}
+
+.radar-sweep-dashboard {
+    position: absolute;
+
+    width: 50%;
+    height: 50%;
+
+    top: 0;
+    left: 50%;
+
+    transform-origin: bottom left;
+
+    background: linear-gradient(
+        135deg,
+        rgba(0, 200, 150, 0.8),
+        transparent
+    );
+
+    border-left: 1px solid #00C896;
+
+    animation:
+        reportRadarSpin 2s linear infinite;
+}
+
+.radar-dot-dashboard {
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: #A3E635;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 8px #A3E635;
+
+    z-index: 5;
+}
+
+@keyframes reportRadarSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
 
     </style>
 
@@ -808,21 +907,24 @@
 
 <body>
 
-    <!-- =========================
+    <!-- 
          NAVIGATION
-    ========================= -->
+     -->
 
     <nav class="navbar navbar-expand-lg navbar-dark">
 
         <div class="container">
 
-            <a
-                class="navbar-brand"
-                href="{{ url_for('dashboard') }}"
-            >
-                <span class="brand-icon">🛡️</span>
-                CyberSentinel AI
-            </a>
+<a href="{{ url_for('dashboard') }}" class="navbar-brand cyber-dashboard-logo">
+
+    <span class="radar-logo-dashboard">
+        <span class="radar-sweep-dashboard"></span>
+        <span class="radar-dot-dashboard"></span>
+    </span>
+
+    <span>CyberSentinel AI</span>
+
+</a>
 
             <div class="d-flex align-items-center">
 
@@ -855,9 +957,9 @@
     </nav>
 
 
-    <!-- =========================
+    <!-- 
          PAGE HEADER
-    ========================= -->
+     -->
 
     <section class="page-header">
 
@@ -872,7 +974,7 @@
             </div>
 
             <div class="page-icon">
-                🛡️
+                
             </div>
 
             <h1>
@@ -893,9 +995,9 @@
     </section>
 
 
-    <!-- =========================
+    <!-- 
          MAIN FORM
-    ========================= -->
+     -->
 
     <div class="container mb-5">
 
@@ -985,9 +1087,9 @@
                 >
 
 
-                    <!-- =========================
+                    <!-- 
                          SECTION 01
-                    ========================= -->
+                     -->
 
                     <div class="form-section">
 
@@ -1125,9 +1227,9 @@
                     </div>
 
 
-                    <!-- =========================
+                    <!-- 
                          SECTION 02
-                    ========================= -->
+                     -->
 
                     <div class="form-section">
 
@@ -1221,9 +1323,9 @@
                     </div>
 
 
-                    <!-- =========================
+                    <!-- 
                          SECTION 03
-                    ========================= -->
+                     -->
 
                     <div class="form-section">
 
@@ -1400,9 +1502,9 @@
                     </div>
 
 
-                    <!-- =========================
+                    <!-- 
                          SECTION 04
-                    ========================= -->
+                     -->
 
                     <div class="form-section">
 
@@ -1490,9 +1592,9 @@
                     </div>
 
 
-                    <!-- =========================
+                    <!-- 
                          ANALYSIS PREVIEW
-                    ========================= -->
+                     -->
 
                     <div class="analysis-preview">
 
@@ -1535,7 +1637,7 @@
                             <div class="analysis-item">
 
                                 <span class="analysis-item-icon">
-                                    🛡️
+                                    
                                 </span>
 
                                 <span>
@@ -1549,9 +1651,9 @@
                     </div>
 
 
-                    <!-- =========================
+                    <!-- 
                          ACTION BUTTONS
-                    ========================= -->
+                     -->
 
                     <div class="form-actions">
 
@@ -1600,15 +1702,15 @@
     </div>
 
 
-    <!-- =========================
+    <!-- 
          FOOTER
-    ========================= -->
+     -->
 
     <footer>
 
         <p class="mb-1">
 
-            © 2026 🛡️ CyberSentinel AI
+            © 2026  CyberSentinel AI
 
         </p>
 
@@ -1628,9 +1730,9 @@
     </footer>
 
 
-    <!-- =========================
+    <!-- 
          JAVASCRIPT
-    ========================= -->
+     -->
 
     <script>
 
