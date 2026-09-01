@@ -313,161 +313,7 @@
     line-height: 1;
     white-space: nowrap;
 }
-
-/* ================================
-   RESPONSIVE NAVBAR
-   ================================ */
-
-@media (max-width: 768px) {
-
-    /* Navbar */
-    .navbar {
-        min-height: auto;
-        padding: 10px 0;
-    }
-
-    /* Main navbar container */
-    .navbar > .container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 100%;
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-    /* ================================
-       LOGO
-       ================================ */
-
-    .auth-brand {
-        position: static !important;
-        left: auto !important;
-        top: auto !important;
-        transform: none !important;
-
-        width: 100%;
-        margin: 0 0 12px 0;
-
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-
-        font-size: 22px;
-        white-space: nowrap;
-    }
-
-    .cyber-logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 7px;
-    }
-
-    .radar-logo {
-        width: 34px;
-        height: 34px;
-        flex-shrink: 0;
-    }
-
-    .logo-text {
-        font-size: 20px;
-    }
-
-    /* ================================
-       NAVIGATION
-       ================================ */
-
-    .navbar-collapse {
-        width: 100%;
-        margin: 0 !important;
-        padding: 0 !important;
-
-        display: block !important;
-    }
-
-    .navbar-nav {
-        width: 100%;
-
-        display: flex !important;
-        flex-direction: row !important;
-
-        justify-content: center !important;
-        align-items: center !important;
-
-        gap: 10px;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* ================================
-       USER
-       ================================ */
-
-    .navbar-user {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-        margin: 0 !important;
-        padding: 7px 5px;
-
-        font-size: 12px;
-        white-space: nowrap;
-    }
-
-    /* ================================
-       LOGOUT
-       ================================ */
-
-    .logout-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-        margin: 0 !important;
-
-        padding: 7px 12px;
-
-        font-size: 12px;
-        white-space: nowrap;
-    }
-}
-
-
-/* Smaller phones */
-@media (max-width: 400px) {
-
-    .auth-brand {
-        margin-bottom: 10px;
-    }
-
-    .radar-logo {
-        width: 30px;
-        height: 30px;
-    }
-
-    .logo-text {
-        font-size: 18px;
-    }
-
-    .navbar-nav {
-        gap: 6px;
-    }
-
-    .navbar-user {
-        font-size: 11px;
-    }
-
-    .logout-btn {
-        padding: 6px 10px;
-        font-size: 11px;
-    }
-}
-
-
+/* Mobile */
 
 
 
@@ -916,7 +762,80 @@ footer strong {
            RESPONSIVE
          */
 
+@media (max-width: 768px) {
 
+    .navbar {
+        min-height: auto;
+        padding: 10px 0 12px;
+    }
+
+    .navbar > .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    /* LOGO */
+    .auth-brand {
+        position: static;
+        transform: none;
+        margin: 0 0 12px 0;
+        font-size: 27px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .cyber-logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+    }
+
+    .radar-logo {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+    }
+
+    .logo-text {
+        font-size: 22px;
+    }
+
+    /* NAVIGATION */
+    .navbar-collapse {
+        width: 100%;
+        display: flex !important;
+        justify-content: center;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin: 0 !important;
+    }
+
+    /* USER */
+    .navbar-user {
+        margin-right: 0;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    /* LOGOUT */
+    .logout-btn {
+        padding: 7px 12px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+}
 
 
         @media (max-width: 576px) {
