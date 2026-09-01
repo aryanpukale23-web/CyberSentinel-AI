@@ -322,26 +322,7 @@
            CENTER BRAND
          */
 
-        .auth-brand {
-
-            position: absolute;
-
-            left: 50%;
-
-            top: 50%;
-
-            transform:
-                translate(-50%, -50%);
-
-            margin: 0;
-
-            font-size: 35px;
-
-            white-space: nowrap;
-
-            z-index: 10;
-
-        }
+        
 
 
         /* 
@@ -913,7 +894,12 @@ footer strong {
         white-space: nowrap;
     }
 }
-
+/* Hide logo on mobile */
+@media (max-width: 768px) {
+    .auth-brand {
+        display: none !important;
+    }
+}
     </style>
 
 
