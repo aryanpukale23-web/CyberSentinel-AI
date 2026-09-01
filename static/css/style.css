@@ -197,3 +197,31 @@ hr{
         opacity: 1;
     }
 }
+@media (max-width: 768px) {
+
+    .navbar-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .brand {
+        justify-content: center;
+        font-size: 25px;
+    }
+
+    .nav-actions {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .nav-btn {
+        flex: 1;
+        max-width: 160px;
+        text-align: center;
+        padding: 10px;
+        font-size: 14px;
+    }
+}
